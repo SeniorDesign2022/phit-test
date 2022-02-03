@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Module3 Assignment : MainPage</title>
+    <link rel = "stylesheet" type = "text/css" href="DemoStyle.css">
+    <script src="https://kit.fontawesome.com/649659c7c9.js" crossorigin="anonymous"></script>v
+</head>
+<body>
+    <div class = heading>
+        <h1>Phi-Test</h1>
+        <form action ="" method = "post" class="userlogin">
+            <h3>Hello user233</h3>
+            <input type = "submit" value="Logout" class="log" name = "login"/>
+        </form>
+    </div>
+
+    <ul>
+        <li><a herf ="#" id = "WelcomeNav" onclick="">Dashboard</a></li>
+        <li><a herf ="#" id = "TakeSurvey" onclick="">Take Survey</a></li>
+        <li><a herf ="#" id = "YourResult" onclick="">Your Result</a></li>
+        <li class = "slide"></li>
+    </ul>
+    <div class = navigate> 
+        <!-- action ="<?php echo htmlentities($_SERVER['PHP_SELF']); ?> " method="POST" -->
+        <input type = "submit" value=" " id="WelcomeNavBtn" name = "WelcomeNavBtn" class="button"/>
+        <input type = "submit" value=" " id="TakeSurveyBtn" name = "TakeSurveyBtn" class="button"/>
+        <input type = "submit" value = " " id="YourResultBtn" name = "YourResultBtn"  class="button"/>
+    </div>
+
+    <div class = boundary>
+        <div class = leftbox>
+
+            <div class = alertbox>
+                <div class="like"><div class = "star"><i class="fas fa-exclamation-triangle"></i></div>
+            </div>
+                <div class = alertmessage>
+                   You have an alarm to view!
+                </div>
+            </div>
+
+            <div class = infobox>
+                <div class = infoTitle>
+                    About the disease...
+                </div>
+                <div class = infoContent>
+                    Benign prostatic hyperplasia, also known as prostate gland enlargement, 
+                    could be a suitable disorder that could incorporate PROs in the course of its treatment. 
+                    BPH is a urinary disorder that is common to men as they age, and causes multiple urinary symptoms, 
+                    including but not limited to frequent urge to urinate, difficulty starting urination, weak urine stream, 
+                    and inability to completely empty the bladder. If symptoms exacerbate, 
+                    it could cause further problems in the urinary tract or the kidneys. BPH affects approximately one third 
+                    of men older than 50 years and 90% of men by age 85 years. It is also documented that more than 14 million men in the United States have symptoms of BPH.
+                </div>
+                <div class = infoTitle>
+                    ...And why tracking matters
+                </div>
+                <div class = infoContent>
+                    Patient-reported outcomes and patient-reported outcome measures have emerged over the recent years 
+                    with the goal of involving patients at the center of health care research, and improving their clinical 
+                    experience. PROs can consist of any self-reported information from patients regarding their own health, 
+                    quality of life, and physical or functional status after receiving treatment. PROMs refer to tools or devices 
+                    that are used to record and report PROs (Weldring, 2013). In the past, PROs have been used more frequently for
+                     diseases that are difficult to cure, such as cancers, because patients’ quality of life has a greater impact
+                     on their experience when the cure is not always successful. Collecting PROs has multiple benefits. First, it could 
+                     serve as an important indicator of treatment efficacy that is difficult to be solely captured by clinical assessments. It also enhances communication between the patient and the care provider, which allows for more accurate treatment planning, increased patient satisfaction, and improved patient compliance and retention
+                </div>
+            </div>
+
+        </div>
+        <div class = rightbox>
+
+            <div class = calendarbox>
+                <div class = calendarTop>
+                    Your Progress
+                </div>
+                <img src="CalendarSample.jpg" alt="Italian Trulli" class = calendar object-fit = contain>
+            </div>
+            <div class = redeembox>
+                <div class = redeemTitle>
+                    Nice Job! 
+                </div>
+                <div class = redeemMessage>
+                    You have done tracking in eight consecutive days! Let's see how you can redeem your rewards... And see how other users are doing!
+
+                </div>
+                <input type = "submit" value="View Leaderboard" class="log" name = "viewScore"/>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript">
+        
+        //set WelcomeNavBtn to be clicked by default.
+        setTimeout(function() {
+            // IE
+            if(document.all) {document.getElementById("WelcomeNav").click();}
+            // Other browsers
+            else {
+                lightUp("WelcomeNav");
+            }
+        }, 100);
+
+        $(document).ready(function(){ //Whenever a nav btn is clicked, it will light up
+            $('li').on('click', function(){
+                $(this).siblings().removeClass('active');
+                $(this).addClass('active');
+            
+            })
+        })
+
+        function lightUp(liID){
+            var e = document.createEvent("MouseEvents");
+                e.initEvent("click", true, true);
+                document.getElementById(liID).dispatchEvent(e);
+        }
+
+        var surveyli = document.getElementsByName("TakeSurveyBtn");
+
+        $( "#WelcomeNavBtn" ).click(function() {
+            lightUp("WelcomeNav");
+        });
+        $( "#TakeSurveyBtn" ).click(function() {
+            lightUp("TakeSurvey");
+        });
+ 
+
+        $( '#YourResultBtn' ).click(function(){
+            lightUp("YourResult");
+        });
+
+    </script>
+
+</body>
+
+</html>
