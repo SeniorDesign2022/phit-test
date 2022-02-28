@@ -3,6 +3,15 @@
 # Initial Setup
 Only do these steps if this is your first time working on the project.
 
+## Set up the virtual environment
+First, install virtual environment if you do not have one. To install, run `pip install virtualenv`. 
+
+Cd into the directory that you have cloned the repository to. Then, you can set up a virtual environment by running `virtualenv venv`. This will create a virtual environment named "venv". 
+
+To start (activate) the virtual environment, which you hae to do before you start working on the project or following through the next steps, run `source venv/bin/activate`. 
+
+To leave (deactivate) the virtual environment, run `deactivate`. 
+
 ## Dependencies
 Activate virtual environment and run the following command to install all dependencies as outlined in requirements.txt. Run `python -m pip install -r requirements.txt` 
 
