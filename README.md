@@ -1,5 +1,10 @@
 # phit-test
 
+# (Reference) How I started a new project
+This is just to keep a record of what steps I took to create the overall structure of our project. These steps could be followed when you want to start a completely new project for any reason. If you are looking for instructions to open an existing project on your own computer, start reading from the next section "Initial Setup". 
+
+I cd-ed into the directory where I cloned the repository and activated the virtual environment. Then I made sure all the dependencies were installed. Then I ran `django-admin startproject phittest` to create the project. Then, I cd into the project, and ran `python manage.py startapp accounts` to create an accounts app within the project.
+
 # Initial Setup
 Only do these steps if this is your first time working on the project.
 
