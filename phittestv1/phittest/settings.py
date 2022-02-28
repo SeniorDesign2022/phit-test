@@ -49,7 +49,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'phittestv1.urls'
+ROOT_URLCONF = 'phittest.urls'
+# ROOT_URLCONF = 'phittestv1.urls'
 
 TEMPLATES = [
     {
@@ -67,7 +68,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'phittestv1.wsgi.application'
+WSGI_APPLICATION = 'phittest.wsgi.application'
+# WSGI_APPLICATION = 'phittestv1.wsgi.application'
 
 
 # Database
