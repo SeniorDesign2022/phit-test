@@ -1,3 +1,9 @@
 from django.shortcuts import render
 
-# Create your views here.
+from accounts.forms import LoginForm
+
+
+def login_view(request):
+    """Shows Login page, and should be available to all users."""
+    form = LoginForm(request.POST or None)
+    return render(request, 'login.html', {'form': form})
