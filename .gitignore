@@ -1,3 +1,5 @@
 __pycache__/
 *.pyc
 *.pyc
+*.sqlite3
+phittest/db.sqlite3
