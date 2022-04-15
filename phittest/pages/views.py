@@ -7,3 +7,9 @@ from django.contrib.auth.decorators import login_required
 def dashboard(request):
 
     return render(request, 'pages/dashboard.html')
+
+def survey(request):
+    return render(request, 'pages/survey.html')
+
+def results(request):
+    return render(request, 'pages/results.html')

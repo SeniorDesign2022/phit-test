@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'accounts',
     'pages',
     'phittest',
+    'bootstrap5',
 ]
 
 MIDDLEWARE = [
