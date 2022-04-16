@@ -29,6 +29,10 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'pages:results' %}">Results</a>
             </li>
+            <a href="#" style="padding-left: 0px" class="nav-link username">
+              User: {{request.user.username}}</a>
+            <a id="id_logout" href="{% url 'logout' %}"><button type="button"
+                class="btn btn-sm btn-danger" style="float: right;">Logout</button></a>
           </ul>
         </div>
       </nav>

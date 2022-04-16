@@ -1,6 +1,6 @@
 from asyncio.log import logger
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 
 
@@ -32,3 +32,10 @@ def login_view(request):
                 #     code=validationErrors.WRONG_PASS
                 # ))
     return render(request, 'login.html', {'form': form})
+
+
+def logout_view(request):
+    """Handles logging out the user and re-routes to login page."""
+    logout(request)
+    return redirect(reverse('login'))
+

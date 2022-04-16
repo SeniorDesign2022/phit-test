@@ -4,3 +4,10 @@ __pycache__/
 *.sqlite3
 phittest/db.sqlite3
 *.pyc
+*.pyc
+*.pyc
+*.pyc
+*.pyc
+phittest/phittest/__pycache__/settings.cpython-38.pyc
+*.pyc
+*.pyc
