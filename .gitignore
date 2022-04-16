@@ -12,3 +12,14 @@ phittest/phittest/__pycache__/settings.cpython-38.pyc
 *.pyc
 *.pyc
 *.pyc
+phittest/accounts/__pycache__/forms.cpython-38.pyc
+*.pyc
+phittest/accounts/__pycache__/forms.cpython-38.pyc
+phittest/accounts/__pycache__/models.cpython-38.pyc
+phittest/accounts/__pycache__/views.cpython-38.pyc
+phittest/pages/__pycache__/admin.cpython-38.pyc
+phittest/pages/__pycache__/models.cpython-38.pyc
+phittest/pages/__pycache__/urls.cpython-38.pyc
+phittest/pages/__pycache__/views.cpython-38.pyc
+phittest/phittest/__pycache__/settings.cpython-38.pyc
+phittest/phittest/__pycache__/urls.cpython-38.pyc

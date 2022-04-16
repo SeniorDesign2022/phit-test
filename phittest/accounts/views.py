@@ -2,9 +2,11 @@ from asyncio.log import logger
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
+from django.contrib import messages
 
 
-from accounts.forms import LoginForm
+
+from accounts.forms import LoginForm, RegisterForm
 
 
 def login_view(request):
@@ -39,3 +41,15 @@ def logout_view(request):
     logout(request)
     return redirect(reverse('login'))
 
+
+def register_view(request):
+	if request.method == "POST":
+		form = RegisterForm(request.POST)
+		if form.is_valid():
+			user = form.save()
+			login(request, user)
+			messages.success(request, "Registration successful." )
+			return redirect("main:homepage")
+		messages.error(request, "Unsuccessful registration. Invalid information.")
+	form = RegisterForm()
+	return render (request=request, template_name="accounts/register.html", context={"form":form})
