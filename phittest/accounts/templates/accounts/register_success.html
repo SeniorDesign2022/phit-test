@@ -1,0 +1,16 @@
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<head>
+    <title>
+        Registration Success
+    </title>
+</head>
+<body style=text-align:center;margin:250px>
+    <h1>Account successfully created.</h1>
+    <br>
+    <p>Username: {{ request.session.account_created }}</p><br><br>
+    <a href="{% url 'login' %}"><button class='w-100 btn btn-lg btn-primary' style=max-width:160px;>Back to Login</button></a>
+</body>
+{% endblock %}

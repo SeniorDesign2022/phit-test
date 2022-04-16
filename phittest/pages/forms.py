@@ -15,18 +15,6 @@ from django.utils.translation import gettext_lazy as _
 
 class SurveyForm(forms.ModelForm):
     """Contains definition for the survey."""
-    # incomplete_emptying = forms.IntegerField(label='Incomplete Emptying', max_length=100)
-    # incomplete_emptying = forms.IntegerField(widget=RadioSelect(choices=SurveyChoices.choices))
-    # frequency = forms.IntegerField(choices=CHOICES.choices, widget=forms.RadioSelect)
-    # intermittency = forms.IntegerField(choices=CHOICES.choices, widget=forms.RadioSelect)
-    # urgency = forms.IntegerField(choices=CHOICES.choices, widget=forms.RadioSelect)
-    # weak_stream = forms.IntegerField(choices=CHOICES.choices, widget=forms.RadioSelect)
-    # straining = forms.IntegerField(choices=CHOICES.choices, widget=forms.RadioSelect)
-    # nocturia = forms.IntegerField(choices=CHOICES.choices, widget=forms.RadioSelect)
-    # quality_of_life = forms.IntegerField(choices=CHOICES.choices, widget=forms.RadioSelect)
-    # total_score = forms.IntegerField(choices=CHOICES.choices, widget=forms.RadioSelect)
-
-
     class Meta:
         """Metadata options for this form."""
         model = Survey

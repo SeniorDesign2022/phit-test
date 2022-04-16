@@ -35,7 +35,7 @@
             </li>
             {% endif %}
             <a href="#" style="padding-left: 0px" class="nav-link username">
-              User: {{request.user.username}}</a>
+              User: {{request.user.first_name}} {{request.user.last_name}}</a>
             <a id="id_logout" href="{% url 'logout' %}"><button type="button"
                 class="btn btn-sm btn-danger" style="float: right;">Logout</button></a>
           </ul>

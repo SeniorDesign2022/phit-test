@@ -43,13 +43,20 @@ def logout_view(request):
 
 
 def register_view(request):
-	if request.method == "POST":
-		form = RegisterForm(request.POST)
-		if form.is_valid():
-			user = form.save()
-			login(request, user)
-			messages.success(request, "Registration successful." )
-			return redirect("main:homepage")
-		messages.error(request, "Unsuccessful registration. Invalid information.")
-	form = RegisterForm()
-	return render (request=request, template_name="accounts/register.html", context={"form":form})
+    request.session['account_created'] = None
+
+    if request.method == "POST":
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            request.session['account_created'] = user.username
+            messages.success(request, "Registration successful.")
+            return redirect(reverse("register_success"))
+        messages.error(request, "Unsuccessful registration. Invalid information.")
+        
+    form = RegisterForm()
+    return render (request, "accounts/register.html", {"form":form})
+
+
+def register_success_view(request):
+    return render(request, 'accounts/register_success.html')
