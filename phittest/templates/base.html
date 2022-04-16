@@ -29,6 +29,11 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'pages:results' %}">Results</a>
             </li>
+            {% if user|is_doctor %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'pages:patients' %}">Patients</a>
+            </li>
+            {% endif %}
             <a href="#" style="padding-left: 0px" class="nav-link username">
               User: {{request.user.username}}</a>
             <a id="id_logout" href="{% url 'logout' %}"><button type="button"

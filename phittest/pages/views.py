@@ -26,6 +26,10 @@ def survey_view(request):
     return render(request, 'pages/survey.html', {'form': form})
 
 @login_required
-def results(request):
+def results_view(request):
     return render(request, 'pages/results.html')
 
+
+@login_required
+def patients_view(request):
+    return render(request, 'pages/patients.html')

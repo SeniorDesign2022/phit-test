@@ -11,3 +11,4 @@ phittest/db.sqlite3
 phittest/phittest/__pycache__/settings.cpython-38.pyc
 *.pyc
 *.pyc
+*.pyc
