@@ -21,7 +21,7 @@ class SurveyForm(forms.ModelForm):
         exclude = ['user', 'total_score']
         widgets = {
             'incomplete_emptying': RadioSelect(choices=models.Survey.NUMCHOICES),
-            'frequency': RadioSelect(choices=models.Survey.NUMCHOICES),
+            'frequency': RadioSelect(choices=models.Survey.NUMCHOICES,attrs={'class' : 'radiobtn'}),
             'intermittency': RadioSelect(choices=models.Survey.NUMCHOICES),
             'urgency': RadioSelect(choices=models.Survey.NUMCHOICES),
             'weak_stream': RadioSelect(choices=models.Survey.NUMCHOICES),

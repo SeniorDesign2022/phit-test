@@ -219,12 +219,52 @@ a.active, a:hover{
 	align-items: center;
 	/* background-color: red; */
 	display:flex;
-	padding:40px;
+	padding:10px;
+	justify-content: center;
 }
 
 #surveyform{
 	/* background-color: green; */
 	/* text-align: center; */
-	width:100%;
+
+	
+	display: flex;
+	flex-direction: column;
 }
 
+
+.radiobtn{
+	/* color:var(--header-color); */
+	/* margin-bottom: 10px; */
+	display:inline;
+
+}
+
+#surveyform p{
+	color:var(--primary);
+	font-size: 30px;
+	margin-top: 15px;
+}
+
+.surveysubbtn{
+	width: 120px;
+	padding:8px;
+	border: none;
+	outline:none;
+	border-radius: 20px;
+	background-color: var(--headerDark);
+	font-size: 20px;
+	color:rgb(112, 112, 112);
+	margin-top: 20px;
+
+	font-weight: bold;
+	transition: all .5s;
+}
+
+.surveysubbtn:hover{
+	cursor:pointer;
+	background-color: var(--primary);
+	color:rgb(255, 255, 255);
+
+	
+}
