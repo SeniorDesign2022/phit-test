@@ -215,5 +215,16 @@ a.active, a:hover{
 	color: var(--headerDark);
 	cursor:pointer;
 }
+.content{
+	align-items: center;
+	/* background-color: red; */
+	display:flex;
+	padding:40px;
+}
 
+#surveyform{
+	/* background-color: green; */
+	/* text-align: center; */
+	width:100%;
+}
 

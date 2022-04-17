@@ -28,6 +28,7 @@ class SurveyForm(forms.ModelForm):
             'straining': RadioSelect(choices=models.Survey.NUMCHOICES),
             'nocturia': RadioSelect(choices=models.Survey.NUMCHOICES),
             'quality_of_life': RadioSelect(choices=models.Survey.QOLCHOICES),
+    
         }
     
 

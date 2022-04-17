@@ -9,8 +9,8 @@ class LoginForm(forms.Form):
     Args:
         Form (Class): Form class
     """
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput())
+    username = forms.CharField(widget=forms.TextInput(attrs={'class' : 'username', 'placeholder':'Username'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class' : 'password', 'placeholder':'Password'}))
 
 
 class RegisterForm(UserCreationForm):
