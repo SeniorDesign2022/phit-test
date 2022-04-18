@@ -1,7 +1,7 @@
 from django import forms
 from .models import Survey
 from pages import models
-from django.forms.widgets import RadioSelect
+from django.forms.widgets import RadioSelect, DateInput
 from django.utils.translation import gettext_lazy as _
 
 
@@ -20,6 +20,7 @@ class SurveyForm(forms.ModelForm):
         model = Survey
         exclude = ['user', 'total_score']
         widgets = {
+            'date': DateInput(attrs={'class': 'datepicker'}),
             'incomplete_emptying': RadioSelect(choices=models.Survey.NUMCHOICES),
             'frequency': RadioSelect(choices=models.Survey.NUMCHOICES,attrs={'class' : 'radiobtn'}),
             'intermittency': RadioSelect(choices=models.Survey.NUMCHOICES),
