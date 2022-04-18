@@ -23,13 +23,13 @@
             <table id="calendar_table">
                 <caption class="current_month"></caption>
                 <tr>
-                    <th>Sunday</th>
-                    <th>Monday</th>
-                    <th>Tuesday</th>
-                    <th>Wednesday</th>
-                    <th>Thursday</th>
-                    <th>Friday</th>
-                    <th>Saturday</th>
+                    <th>Sun</th>
+                    <th>Mon</th>
+                    <th>Tue</th>
+                    <th>Wed</th>
+                    <th>Thu</th>
+                    <th>Fri</th>
+                    <th>Sat</th>
                 </tr>
                 <table id ="cal">
 
@@ -79,7 +79,7 @@
             this.getWeeks = function () { var a = this.getDateObject(1), b = this.nextMonth().getDateObject(0), c = [], a = new Week(a); 
             for (c.push(a); !a.contains(b);)a = a.nextWeek(), c.push(a); return c } };
         // For our purposes, we can keep the current month in a variable in the global scope
-        let currentMonth = new Month(2021, 2);
+        let currentMonth = new Month(2022, 4);
         updateCalendar();
         document.getElementsByClassName("current_month")[0].innerHTML = "<b>Month: "+currentMonth.year + ". "+(currentMonth.month + 1) +"</b>";
         // Change the month when the "next" button is pressed
