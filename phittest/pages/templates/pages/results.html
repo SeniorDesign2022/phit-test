@@ -6,15 +6,30 @@
 
 {%block js%}
 <script>
+
+{% for data in qs %} 
+    console.log('{{request.user}}' == '{{data.user}}');
+{% endfor %}
+var label = [];
+var data = [];
+let tf = false;
+{% for data in qs %}
+    tf = ('{{request.user}}' == '{{data.user}}');
+    if (tf) {
+        label.push('{{data.date}}');
+        data.push({{data.total_score}});
+    }
+{% endfor %}
+console.log(label);
     $(document).ready(function(){
             var ctx = document.getElementById('myChart').getContext('2d');
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: [{% for data in qs %} '{{data.date}}', {% endfor %}],
+                    labels: label,
                     datasets: [{
                         label: 'Total Score',
-                        data: [{% for data in qs %} {{data.total_score}}, {% endfor %}],
+                        data: data,
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)', 
                             'rgba(54, 162, 235, 0.2)',
@@ -31,7 +46,8 @@
                             'rgba(153, 102, 255, 1)',
                             'rgba(255, 159, 64, 1)'
                         ],
-                        borderWidth: 1
+                        borderWidth: 1,
+                        fill: false,
                     }]
                 },
                 options: {
