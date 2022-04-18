@@ -1,0 +1,162 @@
+:root{
+	
+    --headerBG: #417690;
+    --headerLight: white;
+    --headerDark: #f5dd5d;
+    
+    --NavBGLight: #40404059;
+    --NavBGDark: rgb(0, 48, 102);
+  
+    --ALLBG: rgb(22, 22, 22);
+}  
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing:  border-box;
+	text-decoration: none;
+	list-style: none;
+    outline:none;
+    user-select:none;
+}
+
+
+.mainContent{
+    display:flex;
+    align-content:center;
+    width:100%;
+    margin-top:20px;
+    justify-content: center;
+    height:400px;
+
+}
+
+.monthButton{
+    width:2.5%;
+    align-content: center;
+
+}
+
+.rbtn,.lbtn{
+    border-radius: 15px;
+    background: #447285;
+    border:none;
+    padding:5px;
+    margin-top:300px;
+    outline:none;
+}
+.rbtn,.lbtn:hover{
+    cursor: pointer;
+}
+
+.rbtn{
+    float:left;
+    margin-left:10px;
+    margin-right:5px;
+}
+.lbtn{
+    float:right;
+    margin-right:10px;
+    margin-left:5px;
+}
+
+.btn button{
+    margin-top: 150px;
+}
+
+.CLANDER{
+    width:70%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    min-width:400px;
+    
+}
+
+
+
+
+
+.current_month{
+    color:#447285;
+    font-size: 40px;
+}
+#calendar_table{
+    background:#447285;
+
+    border-radius: 10px 10px 0 0;
+    table-layout: fixed;
+    width: 100%;  
+    min-width: 400px;
+    border: 8px solid #447285;
+    border-bottom:4px;
+
+}
+#calendar_table th{
+    height:50px;
+    color:#8ac1c3;
+    /* background-color: #f14b; */
+}
+
+#cal{
+ 
+    table-layout: fixed;
+    width: 100%;
+    
+    background:#447285;
+    border-radius: 0 0 10px 10px;
+  
+}
+
+
+.calendartable{
+    background:#d3f2f0;
+    table-layout: fixed;
+    
+    width: 100%;
+    
+    text-align: center;
+    border: 6px solid #447285;
+    border-radius: 0 0 10px 10px;
+    overflow: hidden;
+}
+
+.calendartable tr{
+    height:100px;
+    color:#0f4457;
+}
+
+.calendartable tr:nth-child(odd){
+    background-color: #78aab2;
+}
+
+.calendartable tr:nth-child(even){
+    background-color: #8ac1c3;
+}
+
+.calendartable td:hover {
+    background-color: #41b7c4;
+    cursor: pointer;
+    
+}
+
+.calendartable td{
+    overflow: scroll;
+    scrollbar-width: none;
+}
+
+::-webkit-scrollbar {
+    width: 0px;
+  }
+
+.unit{
+    display:flex;
+    flex-direction: column;
+    height:80px;
+    padding:5px;
+
+}
+
+.date{
+    color:#d3f2f0;
+    text-align: left;
+}
