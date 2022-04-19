@@ -125,6 +125,7 @@
 .calendartable tr{
     height:50px;
     color:var(--headerBG);
+   
 }
 
 .calendartable tr:nth-child(odd){
@@ -142,8 +143,8 @@
 }
 
 .calendartable td{
-    overflow: scroll;
-    scrollbar-width: none;
+    /* overflow: scroll;
+    scrollbar-width: none; */
 }
 
 ::-webkit-scrollbar {
@@ -161,4 +162,7 @@
 .date{
     color:#d3f2f0;
     text-align: left;
+
 }
+
+

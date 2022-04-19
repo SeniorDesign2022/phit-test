@@ -119,10 +119,16 @@
                             let cellText = document.createTextNode(days[i].getDate());
                             numberdiv.appendChild(cellText);
 
-                    
-                        
-                        
+
                         celldiv.appendChild(numberdiv);
+                        if(days[i].getDate()==10){
+                            let checkdiv = celldiv.appendChild(document.createElement("div"));
+                            checkdiv.className +="check";
+                            checkdiv.innerHTML = '<i class="fa fa-check" aria-hidden="true"></i>';
+  
+                            celldiv.appendChild(checkdiv);
+                        }
+                     
                  
                     cell.appendChild(celldiv);
                     row.appendChild(cell);
