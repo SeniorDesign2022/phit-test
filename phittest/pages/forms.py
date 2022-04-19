@@ -5,14 +5,6 @@ from django.forms.widgets import RadioSelect, DateInput
 from django.utils.translation import gettext_lazy as _
 
 
-# class SurveyChoices(models.TextChoices):
-#     NAA = 0, _('Not at all')
-#     ONE = 1, _('Less than 1 time in 5')
-#     TWO = 2, _('Less than half the time')
-#     THREE = 3, _('About half the time')
-#     FOUR = 4, _('More than half the time')
-#     FIVE = 5, _('Almost always')
-
 class SurveyForm(forms.ModelForm):
     """Contains definition for the survey."""
     class Meta:

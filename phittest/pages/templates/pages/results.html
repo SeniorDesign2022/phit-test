@@ -6,10 +6,6 @@
 
 {%block js%}
 <script>
-
-{% for data in qs %} 
-    console.log('{{request.user}}' == '{{data.user}}');
-{% endfor %}
 var label = [];
 var data = [];
 let tf = false;
@@ -20,7 +16,7 @@ let tf = false;
         data.push({{data.total_score}});
     }
 {% endfor %}
-console.log(label);
+
     $(document).ready(function(){
             var ctx = document.getElementById('myChart').getContext('2d');
             var myChart = new Chart(ctx, {
