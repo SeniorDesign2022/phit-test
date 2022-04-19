@@ -80,6 +80,7 @@
 
 .current_month{
     color:var(--headerBG);
+
     font-size: 40px;
 }
 #calendar_table{
@@ -143,8 +144,8 @@
 }
 
 .calendartable td{
-    /* overflow: scroll;
-    scrollbar-width: none; */
+    overflow: scroll;
+    scrollbar-width: none;
 }
 
 ::-webkit-scrollbar {

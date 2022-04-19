@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView
 from .models import Survey
 
-
+import json
 
 from .forms import SurveyForm
 
@@ -38,6 +38,13 @@ def patients_view(request):
     return render(request, 'pages/patients.html')
 
 
+def calendar_data(request):
+    mylist = [10,22,33,45]
+
+    return render(request, 'pages/dashboard.html', {'demolist': mylist})
+
+
+
 class ChartView(TemplateView):
     template_name = 'pages/results.html'
 
@@ -45,3 +52,12 @@ class ChartView(TemplateView):
         context = super().get_context_data(**kwargs)
         context["qs"] = Survey.objects.all()
         return context
+
+class ChartView(TemplateView):
+    template_name = 'pages/dashboard.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["datedata"] = Survey.objects.dates()
+        return context
+

@@ -19,6 +19,12 @@
             <button class='lbtn' , type="button" id='lastMonth'><i class="fas fa-arrow-left"></i></button>
         </div>
 
+       <div>
+           <h1 id = "control"></h1>
+           <h1 id = "dates"></h1>
+       </div>
+
+
         <div class='CLANDER'>
             <table id="calendar_table">
                 <caption class="current_month"></caption>
@@ -93,7 +99,23 @@
             updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
             document.getElementsByClassName("current_month")[0].innerHTML = "<b>Month: "+currentMonth.year + ". "+(currentMonth.month + 1) +"</b>";
         }, false);
+
+   
+        console.log("control");
+        console.log("{{demolist|safe}}");
+       
+        document.getElementById("control").innerHTML = "control";
+
+        {% for date in datedata %}
+            
+            document.getElementById("datesg").innerHTML = date;
+        {% endfor %}
+
+
         function updateCalendar() {
+    
+
+         
             //reference: https://developer.mozilla.org/en-US/docs/Web/API/Node/removeChild
             let element = document.getElementById("cal");
             while (element.firstChild) {
@@ -121,6 +143,7 @@
 
 
                         celldiv.appendChild(numberdiv);
+                       
                         if(days[i].getDate()==10){
                             let checkdiv = celldiv.appendChild(document.createElement("div"));
                             checkdiv.className +="check";
