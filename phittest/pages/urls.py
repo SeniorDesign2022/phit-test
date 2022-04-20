@@ -13,6 +13,8 @@ urlpatterns = [
     path('patients/', views.patients_view, name='patients'),
     path('patients/<int:id>', views.IndividualPatientListView.as_view(), name='indivpatient'),
     path('patients/<int:id>', views.indiv_patients_view, name='indivpatient'),
+   
+
 
 
 ]

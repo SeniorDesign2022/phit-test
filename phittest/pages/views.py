@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView
 from .models import Survey
@@ -8,12 +9,11 @@ from .forms import SurveyForm
 
 # Create your views here.
 
-@login_required
+@login_required(login_url='/login/')
 def dashboard(request):
+    return redirect('pages:dashboard')
 
-    return render(request, 'pages/dashboard.html')
-
-@login_required
+@login_required(login_url='/login/')
 def survey_view(request):
     if request.method == 'POST':
         form = SurveyForm(request.POST)
@@ -40,29 +40,31 @@ def survey_view(request):
         form = SurveyForm()
     return render(request, 'pages/survey.html', {'form': form})
 
-@login_required
+
+@login_required(login_url='/login/')
 def results_view(request):
-    return render(request, 'pages/results.html')
+    return redirect('pages:results')
 
 
-@login_required
+@login_required(login_url='/login/')
 def patients_view(request):
-    return render(request, 'pages/patients.html')
+    return redirect('pages:patients')
 
 
+@login_required(login_url='/login/')
 def indiv_patients_view(request, id):
-    return render(request, 'pages/indiv_patients.html')
+    return redirect('pages:indivpatient')
 
 
+@login_required(login_url='/login/')
 def calendar_data(request):
     mylist = [10,22,33,45]
-
     return render(request, 'pages/dashboard.html', {'demolist': mylist})
-
 
 class ChartView(TemplateView):
     template_name = 'pages/results.html'
 
+    @login_required
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["qs"] = Survey.objects.all()
@@ -70,7 +72,7 @@ class ChartView(TemplateView):
 
 class PatientsView(TemplateView):
     template_name = 'pages/patients.html'
-
+    @login_required
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["qs"] = User.objects.filter(is_staff=False)
@@ -78,7 +80,7 @@ class PatientsView(TemplateView):
 
 class CalendarView(TemplateView):
     template_name = 'pages/dashboard.html'
-    
+    @login_required
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["qs"] = Survey.objects.all()
@@ -87,7 +89,7 @@ class CalendarView(TemplateView):
 
 class IndividualPatientListView(TemplateView):
     template_name = 'pages/indiv_patients.html'
-
+    @login_required
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["qs2"] = User.objects.filter(is_staff=False)
