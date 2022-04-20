@@ -1,7 +1,51 @@
 {% extends "base.html"%}
 {% block title %}Results{% endblock %}
-
+{% load static %}
 {% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'lightstyle.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'datatablecss.css' %}">
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+    
+    
+</head>
+ 
+<body>
+<div class = "mainContent">
+    <div class = "width_control">
+
+        <div><h1>Patient List</h1></div>
+
+
+        <table id="patientsTable" class="display">
+            <thead>
+                <tr>
+                    <th class="firstnameH">First Name</th>
+                    <th class="lastnameH">Last Name</th>
+                    <th class="dataH">View Data</th>
+                </tr>
+            </thead>
+            <tbody class = "tablebody">
+                {% for patient in qs %}
+                <tr>
+                    <td class = "name1">{{patient.first_name}}</td>
+                    <td class = "name2">{{patient.last_name}}</td>
+                    <td class = "link"><a href={% url 'pages:indivpatient' patient.id %} class = "linktext">View Data</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+</body>
+
+
+{% block js %}
 <script>
     var patients = [];
     let tf = true;
@@ -9,44 +53,14 @@
             patients.push('{{data}}');
     {% endfor %}
     console.log(patients);
-</script>
-  <!-- DataTables
-  <script src="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"></script>
-  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script> -->
-<h1>Patient List</h1>
-<br>
-<br>
-{% for patient in qs %}
-    <a href="#">{{patient.first_name}} {{patient.last_name}}</a>
-    <br>
-    
-{% endfor %}
-<table id="patientsTable" class="display">
-    <thead>
-        <tr>
-            <th class="search">First Name</th>
-            <th class="search">Last Name</th>
-            <th>View Data</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for patient in qs %}
-         <tr>
-             <td>{{patient.first_name}}</td>
-             <td>{{patient.last_name}}</td>
-             <td><a href={% url 'pages:indivpatient' patient.id %}>View Data</a></td>
-         </tr>
-        {% endfor %}
-     </tbody>
-</table>
-<script>
+
     $(document).ready( function () {
         $('#patientsTable').DataTable();
     } );
 </script>
-{% endblock %}
-
-
-{% block js %}
-
 {% endblock js %}
+
+</html>
+
+
+{% endblock %}
