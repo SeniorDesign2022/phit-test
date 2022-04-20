@@ -270,3 +270,10 @@
   
 	  
   }
+
+
+  #usernamedisplay:hover{
+	cursor: default;
+	color: var(--headerLight);
+	background: var(--NavBG);
+  }

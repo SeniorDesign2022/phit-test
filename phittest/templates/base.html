@@ -41,13 +41,13 @@
     </label>
     <label class="logo">PHIT-Test</label>
     <ul class = nav-ul>
-      <li><a class="active" href="{% url 'pages:dashboard' %}">Dashboard</a></li>
-      <li><a href="{% url 'pages:survey' %}">Survey</a></li>
-      <li><a href="{% url 'pages:results' %}">Results</a></li>
+      <li><a {% if request.path == '/dashboard/'%} class="active"{% endif %} href="{% url 'pages:dashboard' %}">Dashboard</a></li>
+      <li><a {% if request.path == '/survey/'%} class="active"{% endif %} href="{% url 'pages:survey' %}">Survey</a></li>
+      <li><a {% if request.path == '/results/'%} class="active"{% endif %} href="{% url 'pages:results' %}">Results</a></li>
       {% if user|is_doctor %}
-      <li><a href="{% url 'pages:patients' %}">Patients</a></li>
+      <li><a {% if request.path != '/dashboard/' and request.path != '/survey/' and request.path != '/results/'%} class="active"{% endif %} href="{% url 'pages:patients' %}">Patients</a></li>
       {% endif %}
-      <li><a href="#" class="nav-link username">
+      <li><a href="#" class="nav-link username" id = "usernamedisplay">
         User: {{request.user.first_name}} {{request.user.last_name}}</a>
       </li>
       <li><a id="id_logout" href="{% url 'logout' %}"><button type="button" class="logoutbtn"
@@ -58,6 +58,8 @@
 
 
 </div>
+
+
 
 {% block content %}
 {% endblock %}
