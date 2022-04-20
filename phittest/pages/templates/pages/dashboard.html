@@ -15,14 +15,11 @@
 
 <body>
     <div class='mainContent'>
+ 
+        <div class = 'calendar_box'>
         <div class='monthButton' ,id='monthButton'>
             <button class='lbtn' , type="button" id='lastMonth'><i class="fas fa-arrow-left"></i></button>
         </div>
-
-       <div class = "messagediv">
-           <h3 id = "consecutive_message"></h3>
-       </div>
-
 
         <div class='CLANDER'>
             <table id="calendar_table">
@@ -49,6 +46,10 @@
         </div>
 
 
+    </div>
+    <div class = "messagediv">
+        <h2 id = "consecutive_message"></h2>
+    </div>
     </div>
     {%block js%}
     <script>
@@ -123,8 +124,8 @@
         });
 
         
-        // document.getElementById("dates").innerHTML = dates;
 
+  
 
         var consecutive_days = [dates[dates.length-1]];
         for(let d = dates.length-1; d >0; d--){
@@ -134,11 +135,36 @@
                 consecutive_days.push(prev_day);
             }
         }
-        let message = "Congratulations! You've recorded for ";
-        message += consecutive_days.length.toString();
-        message += " consecutive days!";
+
+        function istodayRecorded(){
+            var today = new Date();
+            var dd = String(today.getDate());
+            var mm = String(today.getMonth() + 1);
+            var yyyy = today.getFullYear();
+
+            today = mm + '-' + dd + '-' + yyyy;
+            return consecutive_days[0] == today;
+        }
+
+        let message = ""
+        if(istodayRecorded()){   
+
+            if(consecutive_days.length > 1){
+                message += "Nice job! You've recorded for ";
+                message += consecutive_days.length.toString();
+                message += " consecutive days!";
+            }
+            else if(consecutive_days.length = 1){
+                message += "It's never too late to start recording!"
+            }
+
+         }
+        else{
+            message += "Let's record data! It's critical to track medication efficacy!";
+        }
+
         document.getElementById("consecutive_message").innerHTML = message;
-        
+        console.log(dates);
 
         updateCalendar();
 
