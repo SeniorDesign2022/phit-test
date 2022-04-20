@@ -64,7 +64,6 @@ def calendar_data(request):
 class ChartView(TemplateView):
     template_name = 'pages/results.html'
 
-    @login_required
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["qs"] = Survey.objects.all()
@@ -72,7 +71,6 @@ class ChartView(TemplateView):
 
 class PatientsView(TemplateView):
     template_name = 'pages/patients.html'
-    @login_required
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["qs"] = User.objects.filter(is_staff=False)
@@ -80,7 +78,6 @@ class PatientsView(TemplateView):
 
 class CalendarView(TemplateView):
     template_name = 'pages/dashboard.html'
-    @login_required
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["qs"] = Survey.objects.all()
@@ -89,7 +86,7 @@ class CalendarView(TemplateView):
 
 class IndividualPatientListView(TemplateView):
     template_name = 'pages/indiv_patients.html'
-    @login_required
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["qs2"] = User.objects.filter(is_staff=False)
