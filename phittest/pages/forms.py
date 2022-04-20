@@ -23,7 +23,9 @@ class SurveyForm(forms.ModelForm):
             'quality_of_life': RadioSelect(choices=models.Survey.QOLCHOICES),
     
         }
-    
+        help_texts = {
+            'incomplete_emptying': 'It does not feel like I empty my bladder all the way',
+        }
 
     #     labels = {
     #         # 'termination_date': 'Date of Termination From Study',

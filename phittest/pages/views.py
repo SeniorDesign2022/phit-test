@@ -53,11 +53,18 @@ class ChartView(TemplateView):
         context["qs"] = Survey.objects.all()
         return context
 
-class ChartView(TemplateView):
-    template_name = 'pages/dashboard.html'
+class PatientsView(TemplateView):
+    template_name = 'pages/patients.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["datedata"] = Survey.objects.dates()
+        context["qs"] = Survey.objects.all()
         return context
 
+class CalendarView(TemplateView):
+    template_name = 'pages/dashboard.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["qs"] = Survey.objects.all()
+        return context

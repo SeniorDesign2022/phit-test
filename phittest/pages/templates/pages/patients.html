@@ -3,7 +3,18 @@
 
 {% block content %}
 <p>Patients</p>
+<script>
+    var patients = [];
+    let tf = true;
+    {% for data in qs %}
+
+            patients.push('{{data}}');
+
+    {% endfor %}
+    console.log(patients);
+</script>
 {% endblock %}
+
 
 {% block js %}
 
