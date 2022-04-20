@@ -19,9 +19,8 @@
             <button class='lbtn' , type="button" id='lastMonth'><i class="fas fa-arrow-left"></i></button>
         </div>
 
-       <div>
-           <h1 id = "control"></h1>
-           <h1 id = "dates"></h1>
+       <div class = "messagediv">
+           <h3 id = "consecutive_message"></h3>
        </div>
 
 
@@ -117,15 +116,34 @@
             }
         {% endfor %}
  
+        dates.sort(function(a,b) {
+            a = a.split('-').reverse().join('');
+            b = b.split('-').reverse().join('');
+            return a > b ? 1 : a < b ? -1 : 0;  
+        });
+
         
         // document.getElementById("dates").innerHTML = dates;
-    
+
+
+        var consecutive_days = [dates[dates.length-1]];
+        for(let d = dates.length-1; d >0; d--){
+            let cur_day = dates[d];
+            let prev_day = dates[d-1];
+            if(Date.parse(cur_day) - Date.parse(prev_day) === 86400000){
+                consecutive_days.push(prev_day);
+            }
+        }
+        let message = "Congratulations! You've recorded for ";
+        message += consecutive_days.length.toString();
+        message += " consecutive days!";
+        document.getElementById("consecutive_message").innerHTML = message;
+        
 
         updateCalendar();
 
         function updateCalendar() {
     
-            console.log(dates[0]);
          
             //reference: https://developer.mozilla.org/en-US/docs/Web/API/Node/removeChild
             let element = document.getElementById("cal");
@@ -161,10 +179,10 @@
                         let fulldatestring = fulldate.join('-');
 
                         for(var d = 0; d<dates.length; d++){
-                            console.log(dates[d]);
+                           
 
                             if( dates[d] == fulldatestring){
-                                console.log("match");
+                      
                                 let checkdiv = celldiv.appendChild(document.createElement("div"));
                                 checkdiv.className +="check";
                                 checkdiv.innerHTML = '<i class="fa fa-check" aria-hidden="true"></i>';
