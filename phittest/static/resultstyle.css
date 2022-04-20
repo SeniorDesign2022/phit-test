@@ -38,7 +38,7 @@
 .width_control{
     width:80%;
     min-width: 400px;
-    
+    margin-bottom: 40px;
   
 }
 
@@ -46,6 +46,7 @@
     margin-bottom: 20px;
     text-align: center;
     margin-top: 20px;
+    font-size: 25px;
 }
 
 .returnBtn{
