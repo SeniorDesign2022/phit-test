@@ -22,13 +22,19 @@
 
 .mainContent{
     display:flex;
+    flex-direction: column;
     align-content:center;
     width:80%;
     margin-top:20px;
     margin-left: 10%;
     justify-content: center;
     height:400px;
+  
 
+}
+
+.messagediv{
+    color:#f5dd5d;
 }
 
 .monthButton{

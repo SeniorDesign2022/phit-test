@@ -1,6 +1,7 @@
 :root{
 	
   --headerBG: #417690;
+ 
   --headerLight: white;
   --headerDark: #f5dd5d;
   
@@ -153,7 +154,7 @@ a.active, a:hover{
 	display: none;
 }
 
-@media(max-width: 952px){
+@media(max-width: 1200px){
 	label.logo{
 		font-size: 30px;
 		padding-left: 50px;
@@ -163,7 +164,7 @@ a.active, a:hover{
 	}
 }
 
-@media(max-width: 858px){
+@media(max-width: 1110px){
 	.checkbtn{
 		display:block;
 	}
