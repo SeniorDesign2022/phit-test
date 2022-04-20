@@ -50,7 +50,7 @@ def patients_view(request):
     return render(request, 'pages/patients.html')
 
 
-def indiv_patients_view(request):
+def indiv_patients_view(request, id):
     return render(request, 'pages/indiv_patients.html')
 
 
@@ -81,5 +81,15 @@ class CalendarView(TemplateView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["qs"] = Survey.objects.all()
+        return context
+
+
+class IndividualPatientListView(TemplateView):
+    template_name = 'pages/indiv_patients.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["qs2"] = User.objects.filter(is_staff=False)
         context["qs"] = Survey.objects.all()
         return context
