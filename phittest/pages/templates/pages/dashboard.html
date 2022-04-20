@@ -108,10 +108,18 @@
 
         {% for date in datedata %}
             
-            document.getElementById("datesg").innerHTML = date;
+            document.getElementById("dates").innerHTML = date;
         {% endfor %}
 
-
+        var dates = [];
+        let tf = false;
+        {% for data in qs %}
+            tf = ('{{request.user}}' == '{{data.user}}');
+            if (tf) {
+                dates.push({{data.date}});
+            }
+        {% endfor %}
+        console.log(dates);
         function updateCalendar() {
     
 

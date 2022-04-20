@@ -2,23 +2,29 @@
 {% block title %}Results{% endblock %}
 
 {%block content%}
-<canvas id="myChart" width="400" height="100"></canvas>  
-
+<h1>Total Scores</h1>
+<canvas id="totalChart" width="400" height="100"></canvas>  
+<h2>Category Scores</h2>
+<canvas id="categoryChart" width="400" height="100"></canvas>  
 {%block js%}
 <script>
 var label = [];
 var data = [];
+var incomplete_emptying_data = [];
+var frequency_data = [];
 let tf = false;
 {% for data in qs %}
     tf = ('{{request.user}}' == '{{data.user}}');
     if (tf) {
         label.push('{{data.date}}');
         data.push({{data.total_score}});
+        incomplete_emptying_data.push({{data.incomplete_emptying}});
+        frequency_data.push({{data.frequency}});
     }
 {% endfor %}
 
     $(document).ready(function(){
-            var ctx = document.getElementById('myChart').getContext('2d');
+            var ctx = document.getElementById('totalChart').getContext('2d');
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
@@ -48,9 +54,93 @@ let tf = false;
                 },
                 options: {
                     scales: {
-                        y: {
-                            beginAtZero: true
+                        yAxis: {
+                            min: 0,
+                            max: 40,
                         }
+                        // yAxes: {
+                        //     beginAtZero: true,
+                        //     ticks: {
+                        //         min: 0, // minimum value
+                        //         max: 40 // maximum value
+                        //     }
+
+                        // }
+                    }
+                }
+            });
+    });
+
+    // Category Chart
+
+
+    $(document).ready(function(){
+            var ctx = document.getElementById('categoryChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: label,
+                    datasets: [{
+                        label: 'Incomplete Emptying', /// fix me
+                        data: incomplete_emptying_data, // fix me
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)', 
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1,
+                        fill: false,
+                    },
+                    {
+                        label: 'Frequency',
+                        data: frequency_data,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)', 
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1,
+                        fill: false,
+                    },
+
+                ]
+                },
+                options: {
+                    scales: {
+                        yAxis: {
+                            min: 0,
+                            max: 40,
+                        }
+                        // yAxes: {
+                        //     beginAtZero: true,
+                        //     ticks: {
+                        //         min: 0, // minimum value
+                        //         max: 40 // maximum value
+                        //     }
+
+                        // }
                     }
                 }
             });
