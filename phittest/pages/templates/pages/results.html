@@ -1,13 +1,38 @@
 {% extends "base.html"%}
 {% block title %}Results{% endblock %}
-
+{% load static %}
 {%block content%}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'lightstyle.css' %}">
+
+
+
+    <link rel="stylesheet" type="text/css" href="{% static 'datatablestyle.css' %}">
+
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+    
+    
+</head>
+
+<body>
+
 <h1>Total Scores</h1>
 <canvas id="totalChart" width="400" height="100"></canvas>  
 <h2>Category Scores</h2>
 <canvas id="categoryChart" width="400" height="100"></canvas>
 <h2>Quality of Life Scores</h2>
 <canvas id="qolChart" width="400" height="100"></canvas>
+
+
+</body>
+
+
+
 {%block js%}
 <script>
 var label = [];
@@ -178,4 +203,5 @@ $(document).ready(function(){
 {%endblock %}
 
 
+</html>
 {%endblock content%}
