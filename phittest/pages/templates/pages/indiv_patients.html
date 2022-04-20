@@ -2,11 +2,14 @@
 {% block title %}Results{% endblock %}
 
 {%block content%}
-<h1>Total Scores</h1>
+<button onclick="history.back()">Go Back</button>
+<h1 id="totalscore"></h1>
 <canvas id="totalChart" width="400" height="100"></canvas>  
-<h2>Category Scores</h2>
+<br>
+<h1 id="categoryscore"></h1>
 <canvas id="categoryChart" width="400" height="100"></canvas>
-<h2>Quality of Life Scores</h2>
+<br>
+<h1 id="qolscore"></h1>
 <canvas id="qolChart" width="400" height="100"></canvas>
 {%block js%}
 <script>
@@ -24,17 +27,22 @@ let tf = false;
 var pathArray = window.location.href.split('/');
 var patient_id = pathArray[pathArray.length-1];
 var current_patient = '';
+var current_patient_full_name = '';
 {% for data2 in qs2 %}
     tf = (patient_id == {{data2.id}});
     if (tf) {
         
         current_patient = '{{data2.username}}';
+        current_patient_full_name = '{{data2.first_name}} {{data2.last_name}}';
     }
 {% endfor %}
-console.log(current_patient);
+
+document.getElementById("totalscore").innerHTML = "Total Scores for " + current_patient_full_name;
+document.getElementById("categoryscore").innerHTML = "Category Scores for " + current_patient_full_name;
+document.getElementById("qolscore").innerHTML = "Quality of Life Scores for " + current_patient_full_name;
+
 
 {% for data in qs %}
-    console.log("hello");
     tf = (current_patient == '{{data.user}}');
     
     if (tf) {
