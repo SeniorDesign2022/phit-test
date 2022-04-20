@@ -18,9 +18,8 @@ def login_view(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                logger.info(
-                    f'Successful login by user {username} who belongs to groups '
-                    f'{",".join(str(group) for group in user.groups.all())}')
+                if user.groups.filter(name='doctor'):
+                    return redirect(reverse('pages:patients'))
                 return redirect(reverse('pages:dashboard'))
             else:
                 # This code can be used in order to determine
