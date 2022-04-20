@@ -10,7 +10,7 @@ class SurveyForm(forms.ModelForm):
     class Meta:
         """Metadata options for this form."""
         model = Survey
-        exclude = ['user', 'total_score']
+        exclude = ['survey_id', 'user', 'total_score']
         widgets = {
             'date': DateInput(attrs={'class': 'datepicker'}),
             'incomplete_emptying': RadioSelect(choices=models.Survey.NUMCHOICES),
@@ -24,7 +24,7 @@ class SurveyForm(forms.ModelForm):
     
         }
         help_texts = {
-            'incomplete_emptying': 'It does not feel like I empty my bladder all the way',
+            'incomplete_emptying': '*It does not feel like I empty my bladder all the way',
         }
 
     #     labels = {

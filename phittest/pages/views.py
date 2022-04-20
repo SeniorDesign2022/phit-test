@@ -21,7 +21,11 @@ def survey_view(request):
         form = SurveyForm(request.POST)
         if form.is_valid():
             form.instance.user = request.user
+            last_entry_date = Survey.objects.latest('date').date
+            last_entry_id = Survey.objects.latest('date').survey_id
             form.save()
+            if last_entry_date == Survey.objects.latest('date').date:
+                Survey.objects.filter(survey_id=last_entry_id).delete()
             return redirect('pages:survey')
     else:
         form = SurveyForm()

@@ -26,6 +26,7 @@ class Survey(models.Model):
         (5, 'Pleased'),
         (6, 'Delighted'),
     )
+    survey_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
     date = models.DateField(null=True, auto_now_add=True)
     incomplete_emptying = models.IntegerField(blank=False, null=True, default=0)
@@ -44,7 +45,7 @@ class Survey(models.Model):
 
     def __str__(self) -> str:
         """Returns string-formatted objects."""
-        return f'Survey responses for ' + User.get_full_name(self.user)
+        return f'Survey responses for ' + User.get_full_name(self.user) + ' on ' + str(self.date) + ' (' + str(self.survey_id) + ')'
     # class surveyChoices(models.TextChoices):
     #     """Enumeration for the Demographics/Medical History Form."""
     #     NAA = 0, _('Not at all')
