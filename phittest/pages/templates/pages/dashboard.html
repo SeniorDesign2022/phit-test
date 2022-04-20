@@ -86,8 +86,8 @@
             for (c.push(a); !a.contains(b);)a = a.nextWeek(), c.push(a); return c } };
         // For our purposes, we can keep the current month in a variable in the global scope
         let currentMonth = new Month(2022, 4);
-        updateCalendar();
-        document.getElementsByClassName("current_month")[0].innerHTML = "<b>Month: "+currentMonth.year + ". "+(currentMonth.month + 1) +"</b>";
+        
+        document.getElementsByClassName("current_month")[0].innerHTML = "<b>Month: "+currentMonth.year + ". "+(currentMonth.month) +"</b>";
         // Change the month when the "next" button is pressed
         document.getElementById("nextMonth").addEventListener("click", function (event) {
             currentMonth = currentMonth.nextMonth(); // Previous month would be currentMonth.prevMonth()
@@ -100,29 +100,32 @@
             document.getElementsByClassName("current_month")[0].innerHTML = "<b>Month: "+currentMonth.year + ". "+(currentMonth.month + 1) +"</b>";
         }, false);
 
-   
-        console.log("control");
-        console.log("{{demolist|safe}}");
-       
-        document.getElementById("control").innerHTML = "control";
 
-        {% for date in datedata %}
-            
-            document.getElementById("dates").innerHTML = date;
-        {% endfor %}
 
         var dates = [];
         let tf = false;
+     
         {% for data in qs %}
+          
             tf = ('{{request.user}}' == '{{data.user}}');
             if (tf) {
-                dates.push({{data.date}});
+                let thisdate = [];
+                thisdate.push({{data.date.month}});
+                thisdate.push({{data.date.day}});
+                thisdate.push({{data.date.year}});
+                dates.push(thisdate.join('-'));
             }
         {% endfor %}
-        console.log(dates);
-        function updateCalendar() {
+ 
+        
+        // document.getElementById("dates").innerHTML = dates;
     
 
+        updateCalendar();
+
+        function updateCalendar() {
+    
+            console.log(dates[0]);
          
             //reference: https://developer.mozilla.org/en-US/docs/Web/API/Node/removeChild
             let element = document.getElementById("cal");
@@ -151,15 +154,25 @@
 
 
                         celldiv.appendChild(numberdiv);
-                       
-                        if(days[i].getDate()==10){
-                            let checkdiv = celldiv.appendChild(document.createElement("div"));
-                            checkdiv.className +="check";
-                            checkdiv.innerHTML = '<i class="fa fa-check" aria-hidden="true"></i>';
-  
-                            celldiv.appendChild(checkdiv);
+                        let fulldate = [];
+                        fulldate.push(days[i].getMonth());
+                        fulldate.push(days[i].getDate());
+                        fulldate.push(days[i].getFullYear());
+                        let fulldatestring = fulldate.join('-');
+
+                        for(var d = 0; d<dates.length; d++){
+                            console.log(dates[d]);
+
+                            if( dates[d] == fulldatestring){
+                                console.log("match");
+                                let checkdiv = celldiv.appendChild(document.createElement("div"));
+                                checkdiv.className +="check";
+                                checkdiv.innerHTML = '<i class="fa fa-check" aria-hidden="true"></i>';
+    
+                                celldiv.appendChild(checkdiv);
+                            }
                         }
-                     
+
                  
                     cell.appendChild(celldiv);
                     row.appendChild(cell);
