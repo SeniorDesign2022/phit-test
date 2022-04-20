@@ -5,13 +5,22 @@
 <h1>Total Scores</h1>
 <canvas id="totalChart" width="400" height="100"></canvas>  
 <h2>Category Scores</h2>
-<canvas id="categoryChart" width="400" height="100"></canvas>  
+<canvas id="categoryChart" width="400" height="100"></canvas>
+<h2>Quality of Life Scores</h2>
+<canvas id="qolChart" width="400" height="100"></canvas>
 {%block js%}
+<script type="text/javascript" src="utils.js"></script>
 <script>
 var label = [];
 var data = [];
 var incomplete_emptying_data = [];
 var frequency_data = [];
+var intermittency_data = [];
+var urgency_data = [];
+var weak_stream_data = [];
+var straining_data = [];
+var nocturia_data = [];
+var quality_of_life_data = [];
 let tf = false;
 {% for data in qs %}
     tf = ('{{request.user}}' == '{{data.user}}');
@@ -20,6 +29,12 @@ let tf = false;
         data.push({{data.total_score}});
         incomplete_emptying_data.push({{data.incomplete_emptying}});
         frequency_data.push({{data.frequency}});
+        intermittency_data.push({{data.intermittency}});
+        urgency_data.push({{data.urgency}});
+        weak_stream_data.push({{data.weak_stream}});
+        straining_data.push({{data.straining}});
+        nocturia_data.push({{data.nocturia}});
+        quality_of_life_data.push({{data.quality_of_life}});
     }
 {% endfor %}
 
@@ -32,22 +47,8 @@ let tf = false;
                     datasets: [{
                         label: 'Total Score',
                         data: data,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)', 
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
+                        backgroundColor: 'rgba(255, 73, 73, 0.2)',
+                        borderColor: 'rgba(255, 73, 73, 1)',
                         borderWidth: 1,
                         fill: false,
                     }]
@@ -58,22 +59,12 @@ let tf = false;
                             min: 0,
                             max: 40,
                         }
-                        // yAxes: {
-                        //     beginAtZero: true,
-                        //     ticks: {
-                        //         min: 0, // minimum value
-                        //         max: 40 // maximum value
-                        //     }
-
-                        // }
                     }
                 }
             });
     });
 
     // Category Chart
-
-
     $(document).ready(function(){
             var ctx = document.getElementById('categoryChart').getContext('2d');
             var myChart = new Chart(ctx, {
@@ -83,48 +74,59 @@ let tf = false;
                     datasets: [{
                         label: 'Incomplete Emptying', /// fix me
                         data: incomplete_emptying_data, // fix me
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)', 
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
+                        backgroundColor: 'rgba(255, 73, 73, 0.2)',
+                        borderColor: 'rgba(255, 73, 73, 1)',
                         borderWidth: 1,
                         fill: false,
                     },
                     {
                         label: 'Frequency',
                         data: frequency_data,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)', 
-                            'rgba(54, 162, 235, 0.2)',
-                            'rgba(255, 206, 86, 0.2)',
-                            'rgba(75, 192, 192, 0.2)',
-                            'rgba(153, 102, 255, 0.2)',
-                            'rgba(255, 159, 64, 0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)',
-                            'rgba(75, 192, 192, 1)',
-                            'rgba(153, 102, 255, 1)',
-                            'rgba(255, 159, 64, 1)'
-                        ],
+                        backgroundColor: 'rgba(255, 141, 73, 0.2)',
+                        borderColor: 'rgba(255, 141, 73, 1)',
                         borderWidth: 1,
                         fill: false,
                     },
-
+                    {
+                        label: 'Intermittency',
+                        data: intermittency_data,
+                        backgroundColor: 'rgba(255, 232, 73, 0.2)',
+                        borderColor: 'rgba(255, 232, 73, 1)',
+                        borderWidth: 1,
+                        fill: false,
+                    },
+                    {
+                        label: 'Urgency',
+                        data: urgency_data,
+                        backgroundColor: 'rgba(135, 255, 73, 0.2)',
+                        borderColor: 'rgba(135, 255, 73, 1)',
+                        borderWidth: 1,
+                        fill: false,
+                    },
+                    {
+                        label: 'Weak Stream',
+                        data: weak_stream_data,
+                        backgroundColor: 'rgba(73, 232, 255, 0.2)',
+                        borderColor: 'rgba(73, 232, 255, 1)',
+                        borderWidth: 1,
+                        fill: false,
+                    },
+                    {
+                        label: 'Straining',
+                        data: straining_data,
+                        backgroundColor: 'rgba(73, 80, 255, 0.2)',
+                        borderColor: 'rgba(73, 80, 255, 1)',
+                        borderWidth: 1,
+                        fill: false,
+                    },
+                    {
+                        label: 'Nocturia',
+                        data: nocturia_data,
+                        backgroundColor: 'rgba(195, 73, 255, 0.2)',
+                        borderColor: 'rgba(195, 73, 255, 1)',
+                        borderWidth: 1,
+                        fill: false,
+                    },
                 ]
                 },
                 options: {
@@ -145,6 +147,34 @@ let tf = false;
                 }
             });
     });
+
+// QOL chart
+$(document).ready(function(){
+            var ctx = document.getElementById('qolChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: label,
+                    datasets: [{
+                        label: 'Quality of life',
+                        data: quality_of_life_data,
+                        backgroundColor: 'rgba(255, 73, 73, 0.2)',
+                        borderColor: 'rgba(255, 73, 73, 1)',
+                        borderWidth: 1,
+                        fill: false,
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxis: {
+                            min: 0,
+                            max: 40,
+                        }
+                    }
+                }
+            });
+    });
+
 </script>
 {%endblock %}
 
