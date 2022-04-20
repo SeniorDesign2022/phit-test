@@ -3,9 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView
 from .models import Survey
-
-import json
-
+from django.contrib.auth.models import User
 from .forms import SurveyForm
 
 # Create your views here.
@@ -36,12 +34,10 @@ def survey_view(request):
                 form.save()
                 if last_entry_date == Survey.objects.latest('date').date:
                     Survey.objects.filter(survey_id=last_entry_id).delete()
-            
             form.save()
             return redirect('pages:survey')
     else:
         form = SurveyForm()
-        
     return render(request, 'pages/survey.html', {'form': form})
 
 @login_required
@@ -54,11 +50,14 @@ def patients_view(request):
     return render(request, 'pages/patients.html')
 
 
+def indiv_patients_view(request):
+    return render(request, 'pages/indiv_patients.html')
+
+
 def calendar_data(request):
     mylist = [10,22,33,45]
 
     return render(request, 'pages/dashboard.html', {'demolist': mylist})
-
 
 
 class ChartView(TemplateView):
@@ -74,7 +73,7 @@ class PatientsView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["qs"] = Survey.objects.all()
+        context["qs"] = User.objects.filter(is_staff=False)
         return context
 
 class CalendarView(TemplateView):

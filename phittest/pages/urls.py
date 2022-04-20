@@ -11,6 +11,7 @@ urlpatterns = [
     path('results/', views.results_view, name='results'),
     path('patients/', views.PatientsView.as_view(), name='patients'),
     path('patients/', views.patients_view, name='patients'),
+    path('patients/<int:id>', views.indiv_patients_view, name='indivpatient'),
     
 
 ]

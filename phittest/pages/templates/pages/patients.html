@@ -2,16 +2,47 @@
 {% block title %}Results{% endblock %}
 
 {% block content %}
-<p>Patients</p>
 <script>
     var patients = [];
     let tf = true;
     {% for data in qs %}
-
             patients.push('{{data}}');
-
     {% endfor %}
     console.log(patients);
+</script>
+  <!-- DataTables -->
+  <script src="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"></script>
+  <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<h1>Patient List</h1>
+<br>
+<br>
+{% for patient in qs %}
+    <a href="#">{{patient.first_name}} {{patient.last_name}}</a>
+    <br>
+    
+{% endfor %}
+<table id="patientsTable" class="display">
+    <thead>
+        <tr>
+            <th class="search">First Name</th>
+            <th class="search">Last Name</th>
+            <th>View Data</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for patient in qs %}
+         <tr>
+             <td>{{patient.first_name}}</td>
+             <td>{{patient.last_name}}</td>
+             <td><a href={% url 'pages:indivpatient' patient.id %}>View Data</a></td>
+         </tr>
+        {% endfor %}
+     </tbody>
+</table>
+<script>
+    $(document).ready( function () {
+        $('#patientsTable').DataTable();
+    } );
 </script>
 {% endblock %}
 
