@@ -1,13 +1,33 @@
 {% extends "base.html"%}
 {% block title %}Results{% endblock %}
-
+{% load static %}
 {%block content%}
-<h1>Total Scores</h1>
-<canvas id="totalChart" width="400" height="100"></canvas>  
-<h2>Category Scores</h2>
-<canvas id="categoryChart" width="400" height="100"></canvas>
-<h2>Quality of Life Scores</h2>
-<canvas id="qolChart" width="400" height="100"></canvas>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'resultstyle.css' %}">   
+    
+</head>
+
+<body>
+<div class = "mainContent">
+    <div class = "width_control">
+    <h2 >Total Scores</h1>
+    <canvas id="totalChart" width="400" height="100"></canvas>  
+    <h2>Category Scores</h2>
+    <canvas id="categoryChart" width="400" height="100"></canvas>
+    <h2>Quality of Life Scores</h2>
+    <canvas id="qolChart" width="400" height="100"></canvas>
+
+    </div>
+</div>
+</body>
+
+
+
 {%block js%}
 <script>
 var label = [];
@@ -54,10 +74,13 @@ let tf = false;
                 },
                 options: {
                     scales: {
-                        yAxis: {
-                            min: 0,
-                            max: 40,
-                        }
+                        yAxes: [{
+                            // ticks: {
+                            //     min: 0,
+                            //     max: 43,
+                              
+                            // },
+                        }]  
                     }
                 }
             });
@@ -130,18 +153,35 @@ let tf = false;
                 },
                 options: {
                     scales: {
-                        yAxis: {
-                            min: 0,
-                            max: 40,
-                        }
-                        // yAxes: {
-                        //     beginAtZero: true,
-                        //     ticks: {
-                        //         min: 0, // minimum value
-                        //         max: 40 // maximum value
-                        //     }
+                        yAxes: [{
+                            ticks: {
+                                    min: 0,
+                                    max: 5,
+                                    stepSize: 1,
+                                    callback: function(label, index, labels) {
 
-                        // }
+
+                                        switch (label) {
+                                            case 0:
+                                                return 'Not at all';
+                                            case 1:
+                                                return 'Less than 1 time in 5';
+                                            case 2:
+                                                return 'Less than half the time';
+                                            case 3:
+                                                return 'About half the time';
+                                            case 4:
+                                                return 'More than half the time';
+                                            case 5:
+                                                return 'Almost always';
+                                  
+                                        }
+                                    }
+                                
+                            },
+                        }]  
+  
+                    
                     }
                 }
             });
@@ -165,10 +205,36 @@ $(document).ready(function(){
                 },
                 options: {
                     scales: {
-                        yAxis: {
-                            min: 0,
-                            max: 40,
-                        }
+                        yAxes: [{
+                           
+                                ticks: {
+                                    min: 0,
+                                    max: 6,
+                                    stepSize: 1,
+                                    callback: function(label, index, labels) {
+
+
+                                        switch (label) {
+                                            case 0:
+                                                return 'Terrible';
+                                            case 1:
+                                                return 'Unhappy';
+                                            case 2:
+                                                return 'Mostly dissatisfied';
+                                            case 3:
+                                            return 'Mixed feeling (neutral)';
+                                            case 4:
+                                                return 'Mostly satisfied';
+                                            case 5:
+                                                return 'Pleased';
+                                            case 6:
+                                                return 'Delighted';
+                          
+                                        }
+                                    }
+                                
+                            },
+                        }]  
                     }
                 }
             });
@@ -178,4 +244,5 @@ $(document).ready(function(){
 {%endblock %}
 
 
+</html>
 {%endblock content%}

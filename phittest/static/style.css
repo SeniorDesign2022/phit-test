@@ -163,7 +163,7 @@
 	  }
   }
   
-  @media(max-width: 1050px){
+  @media(max-width: 1100px){
 	  .checkbtn{
 		  display:block;
 	  }
@@ -176,9 +176,11 @@
 		  left: -100%;
 		  /* left: 0; */
 		  text-align: center;
-		  transition: all .5s;
+		  /* transition: all .5s; */
+		  z-index: 5;
 	  }
 	  nav ul li{
+		
 		  display: block;
 		  margin: 50px;
 		  line-height: 30px;
@@ -254,7 +256,7 @@
 	  border-radius: 20px;
 	  background-color: var(--headerDark);
 	  font-size: 20px;
-	  color:rgb(112, 112, 112);
+	  color:rgb(0, 0, 0);
 	  margin-top: 20px;
   
 	  font-weight: bold;
@@ -267,4 +269,11 @@
 	  color:rgb(255, 255, 255);
   
 	  
+  }
+
+
+  #usernamedisplay:hover{
+	cursor: default;
+	color: var(--headerLight);
+	background: var(--NavBG);
   }
