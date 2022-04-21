@@ -187,3 +187,21 @@
     /* color: var(--headerDark); */
     color: #8ac1c3;
 }
+
+
+.dot i{
+    color:rgb(255, 247, 6);
+    font-size: 15px;
+
+    margin-left:5px;
+    bottom:5px;
+    background-color: red;
+   
+}
+
+
+
+#today{
+    background-color: #41b7c4;
+
+}

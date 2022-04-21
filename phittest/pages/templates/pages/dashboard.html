@@ -85,9 +85,9 @@
             this.getWeeks = function () { var a = this.getDateObject(1), b = this.nextMonth().getDateObject(0), c = [], a = new Week(a); 
             for (c.push(a); !a.contains(b);)a = a.nextWeek(), c.push(a); return c } };
         // For our purposes, we can keep the current month in a variable in the global scope
-        let currentMonth = new Month(2022, 4);
+        let currentMonth = new Month(2022, 3);
         
-        document.getElementsByClassName("current_month")[0].innerHTML = "<b>Month: "+currentMonth.year + ". "+(currentMonth.month) +"</b>";
+        document.getElementsByClassName("current_month")[0].innerHTML = "<b>Month: "+currentMonth.year + ". "+(currentMonth.month +1) +"</b>";
         // Change the month when the "next" button is pressed
         document.getElementById("nextMonth").addEventListener("click", function (event) {
             currentMonth = currentMonth.nextMonth(); // Previous month would be currentMonth.prevMonth()
@@ -97,7 +97,7 @@
         document.getElementById("lastMonth").addEventListener("click", function (event) {
             currentMonth = currentMonth.prevMonth(); // Previous month would be currentMonth.prevMonth()
             updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
-            document.getElementsByClassName("current_month")[0].innerHTML = "<b>Month: "+currentMonth.year + ". "+(currentMonth.month + 1) +"</b>";
+            document.getElementsByClassName("current_month")[0].innerHTML = "<b>Month: "+currentMonth.year + ". "+ (currentMonth.month +1)  +"</b>";
         }, false);
 
 
@@ -123,9 +123,14 @@
             return a > b ? 1 : a < b ? -1 : 0;  
         });
 
-        
+        var today = new Date();
+        var dd = String(today.getDate());
+        var mm = String(today.getMonth() + 1);
+        var yyyy = today.getFullYear();
 
-  
+        today = mm + '-' + dd + '-' + yyyy;
+
+        
 
         var consecutive_days = [dates[dates.length-1]];
         for(let d = dates.length-1; d >0; d--){
@@ -136,13 +141,9 @@
             }
         }
 
-        function istodayRecorded(){
-            var today = new Date();
-            var dd = String(today.getDate());
-            var mm = String(today.getMonth() + 1);
-            var yyyy = today.getFullYear();
 
-            today = mm + '-' + dd + '-' + yyyy;
+        function istodayRecorded(){
+
             return consecutive_days[0] == today;
         }
 
@@ -164,12 +165,12 @@
         }
 
         document.getElementById("consecutive_message").innerHTML = message;
-        console.log(dates);
+    
 
         updateCalendar();
 
         function updateCalendar() {
-    
+            
          
             //reference: https://developer.mozilla.org/en-US/docs/Web/API/Node/removeChild
             let element = document.getElementById("cal");
@@ -178,6 +179,7 @@
             }
             //end reference
             let weeks = currentMonth.getWeeks();
+            
             let weektable = document.createElement("table");
             weektable.className="calendartable";
             let tblBody = document.createElement("tbody")
@@ -199,10 +201,12 @@
 
                         celldiv.appendChild(numberdiv);
                         let fulldate = [];
-                        fulldate.push(days[i].getMonth());
+                        fulldate.push(days[i].getMonth()+1);
                         fulldate.push(days[i].getDate());
                         fulldate.push(days[i].getFullYear());
                         let fulldatestring = fulldate.join('-');
+                        
+
 
                         for(var d = 0; d<dates.length; d++){
                            
@@ -212,9 +216,15 @@
                                 let checkdiv = celldiv.appendChild(document.createElement("div"));
                                 checkdiv.className +="check";
                                 checkdiv.innerHTML = '<i class="fa fa-check" aria-hidden="true"></i>';
-    
+                                
                                 celldiv.appendChild(checkdiv);
                             }
+                            
+                        }
+
+                        if(fulldatestring == today){
+                            cell.id += "today";
+                           
                         }
 
                  

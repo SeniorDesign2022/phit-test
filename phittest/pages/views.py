@@ -66,7 +66,7 @@ class ChartView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["qs"] = Survey.objects.all()
+        context["qs"] = Survey.objects.all().order_by('date')
         return context
 
 class PatientsView(TemplateView):
@@ -90,5 +90,5 @@ class IndividualPatientListView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["qs2"] = User.objects.filter(is_staff=False)
-        context["qs"] = Survey.objects.all()
+        context["qs"] = Survey.objects.all().order_by('date')
         return context
