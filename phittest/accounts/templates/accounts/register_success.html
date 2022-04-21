@@ -2,15 +2,29 @@
 
 {% block content %}
 <!DOCTYPE html>
+<html lang="en">
 <head>
     <title>
         Registration Success
     </title>
+    <link rel="stylesheet" type="text/css" href="{% static 'register.css' %}">
 </head>
-<body style=text-align:center;margin:250px>
-    <h1>Account successfully created.</h1>
-    <br>
-    <p>Username: {{ request.session.account_created }}</p><br><br>
-    <a href="{% url 'login' %}"><button class='w-100 btn btn-lg btn-primary' style=max-width:160px;>Back to Login</button></a>
+<body>
+    <div class="mainContent">
+
+        
+        <h1>Account successfully created!</h1>
+        <br>
+        <div class = "userinfo">
+            <p>Username: {{ request.session.account_created }}</p>
+        
+        </div>
+        <div  class='backbtn'>
+            <a href="{% url 'login' %}"><button style=max-width:160px;>Back to Login</button></a>
+        </div>
+       
+    
+    </div>
 </body>
+</html>
 {% endblock %}

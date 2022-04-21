@@ -130,3 +130,53 @@ p{
 
 }
 
+.mainContent{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    width:100%;
+    height:40%;
+    margin-top: 30%;
+    
+}
+
+.mainContent h1{
+   font-size: 35px;
+}
+#SuccessMsg{
+    font-size:30px;
+}
+
+
+.userinfo{
+    align-self: center;
+}
+
+.userinfo p{
+    font-size: 20px;
+}
+
+.backbtn{
+    align-items: center;
+    align-self: center;
+    
+}
+
+.backbtn button{
+    color: white;
+    width: 150px;
+    text-shadow: 2px 2px 2px rgba(0,0,0,.2);
+    font-size: 18px;
+    margin-top:20px;
+    padding:12px;
+    border-radius: 20px;
+    border:none;
+    background-color: #5a98b7;
+
+    border-left:2px solid rgba(255, 255, 255, .3);
+    border-top:2px solid rgba(255, 255, 255, .3);
+    box-shadow: 2px 2px 3px rgba(0 , 0, 0, .2);
+}
+.backbtn button:hover{
+    cursor: pointer;
+}
