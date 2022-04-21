@@ -9,12 +9,17 @@
 
 <head>
     <link rel="stylesheet" type="text/css" href="{% static 'resultstyle.css' %}">   
-    
+    <script src="https://kit.fontawesome.com/649659c7c9.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
 <div class = "mainContent">
     <div class = "width_control">
+
+    <div id = "warningbox" class="hidden">
+        <div id = "warning"></div>
+        <div id = "warningmsg"></div>
+    </div>
     <h2 >Total Scores</h1>
     <canvas id="totalChart" width="400" height="100"></canvas>  
     <h2>Category Scores</h2>
@@ -56,6 +61,23 @@ let tf = false;
         quality_of_life_data.push({{data.quality_of_life}});
     }
 {% endfor %}
+
+if(data.length >= 7){
+    let count = 0;
+    for(let i = data.length-1; i>=data.length-7;i--){
+        count += data[i];
+    }
+    let avg = (count/7).toFixed(1);
+    if(avg > 8){
+        document.getElementById('warning').innerHTML = "<i class='fa fa-radiation'></i>"+ " WARNING";
+        document.getElementById('warningmsg').innerHTML = "Your average total score in the past week was "
+        +avg.toString()+". Please contact your doctor ASAP!";
+        document.getElementById('warningbox').classList.remove("hidden");
+    }
+
+}
+
+
 
     $(document).ready(function(){
             var ctx = document.getElementById('totalChart').getContext('2d');

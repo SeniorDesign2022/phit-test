@@ -80,7 +80,7 @@ class CalendarView(TemplateView):
     template_name = 'pages/dashboard.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["qs"] = Survey.objects.all()
+        context["qs"] = Survey.objects.all().order_by('date')
         return context
 
 
