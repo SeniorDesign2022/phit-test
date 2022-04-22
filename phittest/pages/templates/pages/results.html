@@ -9,6 +9,8 @@
 <head>
     <link rel="stylesheet" type="text/css" href="{% static 'resultstyle.css' %}">   
     <script src="https://kit.fontawesome.com/649659c7c9.js" crossorigin="anonymous"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 </head>
 
 <body>
@@ -20,8 +22,10 @@
         <div id = "warningmsg"></div>
     </div>
     <h2 >Total Scores</h1>
+    <div id = "events"></div>
     <canvas id="totalChart" width="400" height="100"></canvas>
-    <h5 align="center">This score is based on the American Urological Association (AUA) symptom score. The higher the more severe the symptoms.</h5>
+    <h5 class = "note">This score is based on the American Urological Association (AUA) symptom score. The higher the more severe the symptoms.</h5>
+    
     <br>
     <br>
     <h2>Category Scores</h2>
@@ -71,7 +75,18 @@ let tf = false;
         
     }
 {% endfor %}
-console.log(events);
+
+
+let eventbox = document.getElementById("events");
+for (const [key, value] of Object.entries(events)){
+    let cellText = document.createElement("div");
+    cellText.innerHTML = value+": "+key;
+    cellText.className+="eventNote";
+    eventbox.appendChild(cellText);
+}
+
+console.log(eventbox.childNodes);
+
 if(data.length >= 7){
     let count = 0;
     for(let i = data.length-1; i>=data.length-7;i--){
@@ -88,8 +103,23 @@ if(data.length >= 7){
 }
 
 
-
 $(document).ready(function(){
+            // const arbitraryLine = {
+            //     id: 'arbitraryLine',
+            //     beforeDraw(chart, args, options){
+            //         const {ctx, 
+            //             chartArea:{top, right, bottom, left, width, height },
+            //             scales:{x,y}
+            //         } = chart;
+            //         ctx.save();
+            //         ctx.strokeStyle = 'yellow';
+            //         ctx.strokeRect(x.getPixelForValue(3), top, 0, height);
+            //         ctx.restore();
+            //     }
+            // }
+            
+
+
             var ctx = document.getElementById('totalChart').getContext('2d');
             var myChart = new Chart(ctx, {
                 type: 'line',
@@ -102,16 +132,53 @@ $(document).ready(function(){
                         borderColor: 'rgba(255, 73, 73, 1)',
                         borderWidth: 1,
                         fill: false,
+                        pointBackgroundColor: function(context) {
+                            var index = context.dataIndex;
+                      
+                            var value = context.dataset.data[index];
+
+                            if(label[index] in events){
+                              
+                                return 'yellow';
+                            }
+                            else{
+                                return 'transparent';
+                            }
+                       
+                        },
+                        pointBorderColor: function(context) {
+                            var index = context.dataIndex;
+                   
+                            var value = context.dataset.data[index];
+
+                            if(label[index] in events){
+                            
+                                return 'yellow';
+                            }
+                            else{
+                                return 'transparent';
+                            }
+                       
+                        },
+
                     }]
                 },
                 options: {
                     scales: {
                         yAxes: {
                             markers: [{ value: 22 }],
-                        }
-                    }
-                }
+                        },
+                        xAxes: [{
+                        
+                            position: 'bottom',
+                        }],
+            
+                    },
+                },
+                // plugins: [arbitraryLine]
             });
+         
+
     });
 
     // Category Chart
