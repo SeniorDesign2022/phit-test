@@ -49,6 +49,8 @@ var weak_stream_data = [];
 var straining_data = [];
 var nocturia_data = [];
 var quality_of_life_data = [];
+var events = new Object();
+
 let tf = false;
 {% for data in qs %}
     tf = ('{{request.user}}' == '{{data.user}}');
@@ -63,9 +65,13 @@ let tf = false;
         straining_data.push({{data.straining}});
         nocturia_data.push({{data.nocturia}});
         quality_of_life_data.push({{data.quality_of_life}});
+        if ('{{data.event_change}}' != 'None'){
+            events['{{data.date}}'] = '{{data.event_change}}';
+        }
+        
     }
 {% endfor %}
-
+console.log(events);
 if(data.length >= 7){
     let count = 0;
     for(let i = data.length-1; i>=data.length-7;i--){
