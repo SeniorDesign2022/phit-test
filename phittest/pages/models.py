@@ -38,6 +38,7 @@ class Survey(models.Model):
     nocturia = models.IntegerField(blank=False, null=True, default=0)
     quality_of_life = models.IntegerField(blank=False, null=True, default=0)
     total_score = models.IntegerField(blank=True, null=True, default=0)
+    event_change = models.TextField(blank=True, null=True)
 
     def save(self):
         self.total_score = self.incomplete_emptying + self.frequency + self.intermittency + self.urgency + self.weak_stream + self.straining + self.nocturia
