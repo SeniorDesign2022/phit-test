@@ -80,7 +80,8 @@
     
     
     for (const [key, value] of Object.entries(dict_score)) {
-        if((value/dict_days[key])>8){
+        
+        if((value/dict_days[key])>8 && dict_days[key]>=7){
             document.getElementById(key).classList.add("needATT");
         }
     }
