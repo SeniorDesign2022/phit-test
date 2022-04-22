@@ -16,6 +16,7 @@
         <div class = "width_control">
             <button onclick="history.back()" class = "returnBtn">Go Back</button>
             <h2 id="totalscore"></h2>
+            <div id = "events"></div>
             <canvas id="totalChart" width="400" height="100"></canvas>  
             <h5 align="center">This score is based on the American Urological Association (AUA) symptom score. The higher the more severe the symptoms.</h5>
             <br>
@@ -49,6 +50,8 @@ var pathArray = window.location.href.split('/');
 var patient_id = pathArray[pathArray.length-1];
 var current_patient = '';
 var current_patient_full_name = '';
+var events = new Object();
+
 {% for data2 in qs2 %}
     tf = (patient_id == {{data2.id}});
     if (tf) {
@@ -77,8 +80,21 @@ document.getElementById("qolscore").innerHTML = "Quality of Life Scores for " + 
         straining_data.push({{data.straining}});
         nocturia_data.push({{data.nocturia}});
         quality_of_life_data.push({{data.quality_of_life}});
+        if ('{{data.event_change}}' != 'None'){
+            events['{{data.date}}'] = '{{data.event_change}}';
+        }
     }
 {% endfor %}
+
+
+let eventbox = document.getElementById("events");
+for (const [key, value] of Object.entries(events)){
+    let cellText = document.createElement("div");
+    cellText.innerHTML = value+": "+key;
+    cellText.className+="eventNote";
+    eventbox.appendChild(cellText);
+}
+
 
     $(document).ready(function(){
             var ctx = document.getElementById('totalChart').getContext('2d');
@@ -93,6 +109,34 @@ document.getElementById("qolscore").innerHTML = "Quality of Life Scores for " + 
                         borderColor: 'rgba(255, 73, 73, 1)',
                         borderWidth: 1,
                         fill: false,
+                        pointBackgroundColor: function(context) {
+                            var index = context.dataIndex;
+                      
+                            var value = context.dataset.data[index];
+
+                            if(label[index] in events){
+                              
+                                return 'yellow';
+                            }
+                            else{
+                                return 'transparent';
+                            }
+                       
+                        },
+                        pointBorderColor: function(context) {
+                            var index = context.dataIndex;
+                   
+                            var value = context.dataset.data[index];
+
+                            if(label[index] in events){
+                            
+                                return 'yellow';
+                            }
+                            else{
+                                return 'transparent';
+                            }
+                       
+                        },
                     }]
                 },
                 options: {
