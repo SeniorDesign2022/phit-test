@@ -31,20 +31,16 @@ def survey_view(request):
         form = SurveyForm(request.POST)
         if form.is_valid():
             form.instance.user = request.user
-            print("user: ", request.user)
             all_entries = Survey.objects.all()
             user_entries = []
             for entry in all_entries:
                 if entry.user == request.user:
                     user_entries.append(entry)
-            print(len(user_entries))
             if len(user_entries) != 0:
                 last_entry_date = user_entries[len(user_entries)-1].date
                 last_entry_id = user_entries[len(user_entries)-1].survey_id
-            
-                print(last_entry_id)
                 form.save()
-                if last_entry_date == Survey.objects.latest('date').date:
+                if last_entry_date == form.instance.date:
                     Survey.objects.filter(survey_id=last_entry_id).delete()
             form.save()
             return redirect('pages:survey')
