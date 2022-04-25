@@ -140,6 +140,9 @@
             if(Date.parse(cur_day) - Date.parse(prev_day) === 86400000){
                 consecutive_days.push(prev_day);
             }
+            else{
+                break;
+            }
         }
 
 

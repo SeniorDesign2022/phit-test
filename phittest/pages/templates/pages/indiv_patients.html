@@ -80,7 +80,7 @@ document.getElementById("qolscore").innerHTML = "Quality of Life Scores for " + 
         straining_data.push({{data.straining}});
         nocturia_data.push({{data.nocturia}});
         quality_of_life_data.push({{data.quality_of_life}});
-        if ('{{data.event_change}}' != 'None'){
+        if (('{{data.event_change}}' !='None') && ('{{data.event_change}}' != '')){
             events['{{data.date}}'] = '{{data.event_change}}';
         }
     }
