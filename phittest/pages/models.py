@@ -28,7 +28,7 @@ class Survey(models.Model):
     )
     survey_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
-    date = models.DateField(null=True, auto_now_add=True) #auto_now_add=True
+    date = models.DateField(null=True,auto_now_add=True) #auto_now_add=True
     incomplete_emptying = models.IntegerField(blank=False, null=True, default=0)
     frequency = models.IntegerField(blank=False, null=True, default=0)
     intermittency = models.IntegerField(blank=False, null=True, default=0)
