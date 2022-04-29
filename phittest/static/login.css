@@ -1,0 +1,122 @@
+:root{
+	
+    --headerBG: #417690;
+    --headerLight: white;
+    --headerDark: #f5dd5d;
+    
+    --NavBGLight: #40404059;
+    --NavBGDark: rgb(0, 48, 102);
+  
+    --ALLBG: rgb(22, 22, 22);
+}  
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing:  border-box;
+	text-decoration: none;
+	list-style: none;
+    outline:none;
+    user-select:none;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, Helvetica, sans-serif;
+	background-color: var(--headerBG);
+    /* background: url(https://static.wixstatic.com/media/7ac599_f842ab80e854407eacdc39744ce0a938~mv2.jpg/v1/fill/w_808,h_673,al_c,q_85,usm_0.66_1.00_0.01/7ac599_f842ab80e854407eacdc39744ce0a938~mv2.webp) center; */
+	color: transparent;
+    /* background-size:cover; */
+    background-attachment: fixed;
+
+}
+
+form{
+    background-color: rgba(255, 255, 255, .3);
+    width: 400px;
+    height:400px;
+    border-radius:20px;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    backdrop-filter: blur(3px);
+    border-left:2px solid rgba(255, 255, 255, .3);
+    border-top:2px solid rgba(255, 255, 255, .3);
+    box-shadow: 2px 2px 10px rgba(0 , 0, 0, .2);
+    text-align: center;
+}
+
+
+
+h1{
+    margin: 20px;
+    font-weight: 500;
+    font-size: 65px;
+    color: white;
+
+}
+
+.title{
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, .2);
+    opacity: 0.9;
+}
+
+input{
+    border: none;
+    width:50%;
+    font-size:20px;
+    padding: 10px;
+    margin-bottom:32px;
+
+    margin-left: -80px;
+
+    border-radius: 6px;
+    background-color: transparent;
+    backdrop-filter: blur(3px);
+    border-left:2px solid rgba(255, 255, 255, .3);
+    border-top:2px solid rgba(255, 255, 255, .3);
+    box-shadow: 2px 2px 3px rgba(0 , 0, 0, .2);
+    text-shadow: 2px 2px 2px rgba(0,0,0,.2);
+    color: white;
+
+}
+
+input:focus{
+    border:none;
+    background-color: rgba(255, 255, 255, .1);
+
+    text-shadow: 1px 1px 2px rgba(0,0,0,.2);
+    border-right:2px solid rgba(255, 255, 255, .3);
+    border-bottom:2px solid rgba(255, 255, 255, .3);
+    box-shadow: inset 2px 2px 3px rgba(0 , 0, 0, .2);
+}
+.submitbtn{
+    margin-left: 0px;
+    border-radius: 20px;
+}
+
+.submitbtn:hover{
+    cursor: pointer;
+}
+::placeholder{
+    color:white;
+    opacity: 0.5;
+    text-align: center;
+}
+
+.login-content{
+	display:flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	justify-self:auto;
+	background:transparent;
+}
+
+.registerbtn{
+    color: white;
+    text-shadow: 2px 2px 2px rgba(0,0,0,.2);
+    font-size: 18px;
+}
+

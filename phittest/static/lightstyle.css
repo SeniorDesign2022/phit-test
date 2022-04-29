@@ -1,0 +1,79 @@
+:root{
+	
+    --headerBG: #417690;
+    --headerLight: white;
+    --headerDark: #f5dd5d;
+
+    --NavBGLight: #40404059;
+    --NavBGDark: rgb(0, 48, 102);
+  
+    --ALLBG: rgb(22, 22, 22);
+} 
+
+
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing:  border-box;
+	text-decoration: none;
+	list-style: none;
+    outline:none;
+    user-select:none;
+    color:rgb(242, 242, 242);
+}
+
+body{
+    /* background-color: rgb(255, 255, 255); */
+
+}
+
+.mainContent{
+    color:black;
+    width: 100%;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* z-index:-10; */
+    color:white;
+}
+
+#patientsTable{
+    width:100%;
+    
+}
+
+.width_control{
+    width:80%;
+    min-width: 400px;
+}
+.width_control h1{
+    margin-top:30px;
+    margin-bottom:20px;
+}
+
+.firstnameH{
+    background-color: #417690;
+}
+
+.lastnameH{
+    background-color: #609ab6;
+}
+
+.dataH{
+    background-color: #417690;
+}
+
+.name1, .name2, .linktext{
+ 
+    color:var(--headerBG);
+    
+}
+
+.linktext:hover{
+    color:#ffffff;
+}
+
+.needATT{
+    background-color: #f5dd5d;
+}

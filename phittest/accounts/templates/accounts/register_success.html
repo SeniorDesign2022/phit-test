@@ -1,0 +1,30 @@
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>
+        Registration Success
+    </title>
+    <link rel="stylesheet" type="text/css" href="{% static 'register.css' %}">
+</head>
+<body>
+    <div class="mainContent">
+
+        
+        <h1>Account successfully created!</h1>
+        <br>
+        <div class = "userinfo">
+            <p>Username: {{ request.session.account_created }}</p>
+        
+        </div>
+        <div  class='backbtn'>
+            <a href="{% url 'login' %}"><button style=max-width:160px;>Back to Login</button></a>
+        </div>
+       
+    
+    </div>
+</body>
+</html>
+{% endblock %}

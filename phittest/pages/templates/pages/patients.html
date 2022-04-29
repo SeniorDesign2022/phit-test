@@ -1,0 +1,98 @@
+{% extends "base.html"%}
+{% block title %}Results{% endblock %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'lightstyle.css' %}">
+
+
+
+    <link rel="stylesheet" type="text/css" href="{% static 'datatablestyle.css' %}">
+
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+    
+    
+</head>
+ 
+<body>
+<div class = "mainContent">
+    <div class = "width_control">
+
+        <div><h1>Patient List</h1></div>
+
+
+        <table id="patientsTable" class="display">
+            <thead>
+                <tr>
+                    <th class="firstnameH">First Name</th>
+                    <th class="lastnameH">Last Name</th>
+                    <th class="dataH">View Data</th>
+                </tr>
+            </thead>
+            <tbody class = "tablebody">
+                {% for patient in qs %}
+                <tr>
+
+                    <td class = "name1">{{patient.first_name}}</td>
+                    <td class = "name2">{{patient.last_name}}</td>
+                    <td class = "link" id = {{patient.last_name}}{{patient.first_name}} ><a href={% url 'pages:indivpatient' patient.id %} class = "linktext">View Data</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+</body>
+
+
+{% block js %}
+<script>
+    var patients = [];
+    var dict_score = new Object();
+    var dict_days = new Object();
+
+    let tf = true;
+    {% for patient in qs %}
+
+            patients.push('{{patient.last_name}}{{patient.first_name}}');
+    
+            dict_score['{{patient.last_name}}{{patient.first_name}}'] = 0;
+            dict_days['{{patient.last_name}}{{patient.first_name}}'] = 0;
+           
+    {% endfor %}
+
+    let TS = 0;
+    let user;
+    {% for sv in datas %}
+
+        TS = {{sv.total_score}};
+        user = '{{sv.user.last_name}}{{sv.user.first_name}}';
+      
+        dict_score[user] += TS;
+        dict_days[user] += 1;
+       
+    {% endfor %}
+    
+    
+    for (const [key, value] of Object.entries(dict_score)) {
+        
+        if((value/dict_days[key])>8 && dict_days[key]>=7){
+            document.getElementById(key).classList.add("needATT");
+        }
+    }
+
+    $(document).ready( function () {
+        $('#patientsTable').DataTable();
+    } );
+</script>
+{% endblock js %}
+
+</html>
+
+
+{% endblock %}

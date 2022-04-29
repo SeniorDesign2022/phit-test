@@ -1,0 +1,311 @@
+:root{
+	
+	--headerBG: #417690;
+	--headerLight: white;
+	--headerDark: #f5dd5d;
+	
+	--NavBGLight: #40404059;
+	--NavBGDark: rgb(0, 48, 102);
+  
+	--ALLBG: rgb(22, 22, 22);
+  
+  /* below are default django admin colors. reference only */
+	--primary: #79aec8;
+	--secondary: #417690;
+	--accent: #f5dd5d;
+	--primary-fg: #fff;
+  
+	--body-fg: rgb(40, 40, 40);
+	--body-bg: #fff;
+	--body-quiet-color: #666;
+	--body-loud-color: #000;
+  
+	--header-color: #ffc;
+	--header-branding-color: var(--accent);
+	--header-bg: var(--secondary);
+	--header-link-color: var(--primary-fg);
+  
+	--breadcrumbs-fg: #c4dce8;
+	--breadcrumbs-link-fg: var(--body-bg);
+	--breadcrumbs-bg: var(--primary);
+  
+	--link-fg: #447e9b;
+	--link-hover-color: #036;
+	--link-selected-fg: #5b80b2;
+  
+	--hairline-color: #e8e8e8;
+	--border-color: #ccc;
+  
+	--error-fg: #ba2121;
+  
+	--message-success-bg: #dfd;
+	--message-warning-bg: #ffc;
+	--message-error-bg: #ffefef;
+  
+	--darkened-bg: #f8f8f8; /* A bit darker than --body-bg */
+	--selected-bg: #e4e4e4; /* E.g. selected table cells */
+	--selected-row: #ffc;
+  
+	--button-fg: #fff;
+	--button-bg: var(--primary);
+	--button-hover-bg: #609ab6;
+	--default-button-bg: var(--secondary);
+	--default-button-hover-bg: #205067;
+	--close-button-bg: #888; /* Previously #bbb, contrast 1.92 */
+	--close-button-hover-bg: #747474;
+	--delete-button-bg: #ba2121;
+	--delete-button-hover-bg: #a41515;
+  
+	--object-tools-fg: var(--button-fg);
+	--object-tools-bg: var(--close-button-bg);
+	--object-tools-hover-bg: var(--close-button-hover-bg);
+  }
+  
+  *{
+	  padding: 0;
+	  margin: 0;
+	  box-sizing:  border-box;
+	  text-decoration: none;
+	  list-style: none;
+  }
+  
+  body{
+	  display: flex;
+	  flex-direction: column;
+	  font-family: Arial, Helvetica, sans-serif;
+	  background-color: var(--ALLBG);
+	  color: white;
+  
+  }
+  
+  .header{
+	  width: auto;
+	  height: auto;
+	  display: flex;
+	  justify-content: space-between;
+	  align-items: center;
+	  padding: 10px 40px;
+	  background: var(--headerBG);
+	  color: var(--headerDark);
+	  overflow: hidden;
+  }
+  
+  .header h1{
+	  padding: 0;
+	  margin: 0 20px 0 0;
+	  font-weight: 300;
+	  font-size: 1.5rem;
+	  color: var(--accent);
+	  font-weight: bold;
+	  font-size:35px;
+  }
+  
+  nav{
+	  background: var(--headerBG);
+	  height:80px;
+	  width: 100%;
+  }
+  
+  label.logo{
+	  color:var(--headerDark);
+	  font-size:35px;
+	  line-height:80px;
+	  padding: 0 100px;
+	  font-weight:bold;
+  }
+  
+  nav ul{
+	  float:right;
+	  margin-right:20px;
+  }
+  
+  nav ul li{
+	  display: inline-block;
+	  line-height: 80px;
+	  margin: 0 5px;
+  }
+  
+  nav ul li a{
+	  color: var(--headerLight);
+	  font-size:17px;
+	  padding: 7px 13px;
+	  border-radius: 3px;
+	  text-transform: uppercase;
+  }
+  
+  a.active, a:hover{
+	  background: var(--NavBGLight);
+	  color: var(--headerDark);
+	  transition:  .5s;
+  }
+  
+  .checkbtn{
+	  font-size: 30px;
+	  color: var(--headerLight);
+	  float: right;
+	  line-height: 80px;
+	  margin-right: 40px;
+	  cursor: pointer;
+	  display: none;
+  }
+  
+  #check{
+	  display: none;
+  }
+  
+  @media(max-width: 1200px){
+	  label.logo{
+		  font-size: 30px;
+		  padding-left: 50px;
+	  }
+	  nav ul li a{
+		  font-size: 16px;
+	  }
+  }
+  
+  @media(max-width: 1100px){
+	  .checkbtn{
+		  display:block;
+	  }
+	  ul{
+		  position: fixed;
+		  width: 100%;
+		  height: 100vh;
+		  background: var(--NavBGDark);
+		  top: 80px;
+		  left: -100%;
+		  /* left: 0; */
+		  text-align: center;
+		  /* transition: all .5s; */
+		  z-index: 5;
+	  }
+	  nav ul li{
+		
+		  display: block;
+		  margin: 50px;
+		  line-height: 30px;
+  
+	  }
+	  nav ul li a{
+		  font-size: 20px;
+	  }
+	  a:hover, a.active{
+		  background: none;
+		  color: var(--headerDark);
+	  }
+  
+	  #check:checked ~ ul{
+		  left: 0;
+	  }
+  }
+  
+  .logoutbtn{
+	  background: none;
+	  align-items: center;
+	  /* padding: 0; */
+	  border: 0;
+	  outline: none;
+	  color: var(--headerLight);
+	  font-size:17px;
+	  /* padding: 7px 13px; */
+	  border-radius: 3px;
+	  /* potision: absolute; */
+	  text-transform: uppercase;
+  }
+  
+  .logoutbtn:hover{
+	  color: var(--headerDark);
+	  cursor:pointer;
+  }
+  .content{
+	  align-items: center;
+	  /* background-color: red; */
+	  display:flex;
+	  padding:10px;
+	  justify-content: center;
+  }
+  
+  #surveyform{
+	  /* background-color: green; */
+	  /* text-align: center; */
+  
+	  
+	  display: flex;
+	  flex-direction: column;
+  }
+  
+  
+  .radiobtn{
+	  /* color:var(--header-color); */
+	  /* margin-bottom: 10px; */
+	  display:inline;
+  
+  }
+  
+  #surveyform p{
+	  color:var(--primary);
+	  font-size: 30px;
+	  margin-top: 15px;
+  }
+  
+  .surveysubbtn{
+	  width: 120px;
+	  padding:8px;
+	  border: none;
+	  outline:none;
+	  border-radius: 20px;
+	  background-color: var(--headerDark);
+	  font-size: 20px;
+	  color:rgb(0, 0, 0);
+	  margin-top: 20px;
+  
+	  font-weight: bold;
+	  transition: all .5s;
+  }
+  
+  .surveysubbtn:hover{
+	  cursor:pointer;
+	  background-color: var(--primary);
+	  color:rgb(255, 255, 255);
+  
+	  
+  }
+
+
+  #usernamedisplay:hover{
+	cursor: default;
+	color: var(--headerLight);
+	background: var(--NavBG);
+  }
+
+
+  #surveyform textarea{
+	  background-color: var(--ALLBG);
+	  display: block;
+	  margin-top: 10px;
+	  color:white;
+
+  }
+
+  .note{
+	  text-align:center;
+	  margin-top:10px;
+	  font-weight:100;
+	  color: #888;
+  }
+
+  #events{
+
+	  text-align: center;
+	  color:rgb(200, 200, 0);
+	  display:flex;
+	  flex-direction: column;
+	  justify-content: center;
+	  align-items: center;
+
+	  margin-top: -10px;
+  }
+
+  .eventNote{
+	  display:block;
+  }

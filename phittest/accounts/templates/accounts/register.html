@@ -1,0 +1,31 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <link rel="stylesheet" type="text/css" href="{% static 'register.css' %}">
+</head>
+
+<body>
+  <div class = "register-content">
+
+    <form method="post">
+      <h1 class = "title">Register</h1>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value = "create account" class = "submitbtn">
+    
+      <a href="{% url 'login' %}" class = "returnbtn">
+      
+        back to login 
+      </a>
+   
+    </form>
+
+
+</div>
+</body>
+
+</html>

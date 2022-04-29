@@ -1,0 +1,311 @@
+{% extends "base.html"%}
+{% block title %}Results{% endblock %}
+{% load static %}
+{%block content%}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'resultstyle.css' %}">   
+    
+</head>
+<body>
+    <div class = "mainContent">
+        <div class = "width_control">
+            <button onclick="history.back()" class = "returnBtn">Go Back</button>
+            <h2 id="totalscore"></h2>
+            <div id = "events"></div>
+            <canvas id="totalChart" width="400" height="100"></canvas>  
+            <h5 align="center">This score is based on the American Urological Association (AUA) symptom score. The higher the more severe the symptoms.</h5>
+            <br>
+            <br>
+            <h2 id="categoryscore"></h2>
+            <canvas id="categoryChart" width="400" height="100"></canvas>
+            <br>
+            <br>
+            <h2 id="qolscore"></h2>
+            <canvas id="qolChart" width="400" height="100"></canvas>
+
+        </div>
+    </div>
+</body>
+
+
+{%block js%}
+<script>
+var label = [];
+var data = [];
+var incomplete_emptying_data = [];
+var frequency_data = [];
+var intermittency_data = [];
+var urgency_data = [];
+var weak_stream_data = [];
+var straining_data = [];
+var nocturia_data = [];
+var quality_of_life_data = [];
+let tf = false;
+var pathArray = window.location.href.split('/');
+var patient_id = pathArray[pathArray.length-1];
+var current_patient = '';
+var current_patient_full_name = '';
+var events = new Object();
+
+{% for data2 in qs2 %}
+    tf = (patient_id == {{data2.id}});
+    if (tf) {
+        
+        current_patient = '{{data2.username}}';
+        current_patient_full_name = '{{data2.first_name}} {{data2.last_name}}';
+    }
+{% endfor %}
+
+document.getElementById("totalscore").innerHTML = "Total Scores for " + current_patient_full_name;
+document.getElementById("categoryscore").innerHTML = "Category Scores for " + current_patient_full_name;
+document.getElementById("qolscore").innerHTML = "Quality of Life Scores for " + current_patient_full_name;
+
+
+{% for data in qs %}
+    tf = (current_patient == '{{data.user}}');
+    
+    if (tf) {
+        label.push('{{data.date}}');
+        data.push({{data.total_score}});
+        incomplete_emptying_data.push({{data.incomplete_emptying}});
+        frequency_data.push({{data.frequency}});
+        intermittency_data.push({{data.intermittency}});
+        urgency_data.push({{data.urgency}});
+        weak_stream_data.push({{data.weak_stream}});
+        straining_data.push({{data.straining}});
+        nocturia_data.push({{data.nocturia}});
+        quality_of_life_data.push({{data.quality_of_life}});
+        if (('{{data.event_change}}' !='None') && ('{{data.event_change}}' != '')){
+            events['{{data.date}}'] = '{{data.event_change}}';
+        }
+    }
+{% endfor %}
+
+
+let eventbox = document.getElementById("events");
+for (const [key, value] of Object.entries(events)){
+    let cellText = document.createElement("div");
+    cellText.innerHTML = value+": "+key;
+    cellText.className+="eventNote";
+    eventbox.appendChild(cellText);
+}
+
+
+    $(document).ready(function(){
+            var ctx = document.getElementById('totalChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: label,
+                    datasets: [{
+                        label: 'Total Score',
+                        data: data,
+                        backgroundColor: 'rgba(255, 73, 73, 0.2)',
+                        borderColor: 'rgba(255, 73, 73, 1)',
+                        borderWidth: 1,
+                        fill: false,
+                        pointBackgroundColor: function(context) {
+                            var index = context.dataIndex;
+                      
+                            var value = context.dataset.data[index];
+
+                            if(label[index] in events){
+                              
+                                return 'yellow';
+                            }
+                            else{
+                                return 'transparent';
+                            }
+                       
+                        },
+                        pointBorderColor: function(context) {
+                            var index = context.dataIndex;
+                   
+                            var value = context.dataset.data[index];
+
+                            if(label[index] in events){
+                            
+                                return 'yellow';
+                            }
+                            else{
+                                return 'transparent';
+                            }
+                       
+                        },
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: {
+                            markers: [{ value: 22 }],
+                        }
+                    }
+                }
+            });
+    });
+
+    // Category Chart
+    $(document).ready(function(){
+            var ctx = document.getElementById('categoryChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: label,
+                    datasets: [{
+                        label: 'Incomplete Emptying', /// fix me
+                        data: incomplete_emptying_data, // fix me
+                        backgroundColor: 'rgba(255, 73, 73, 0.2)',
+                        borderColor: 'rgba(255, 73, 73, 1)',
+                        borderWidth: 1,
+                        fill: false,
+                    },
+                    {
+                        label: 'Frequency',
+                        data: frequency_data,
+                        backgroundColor: 'rgba(255, 141, 73, 0.2)',
+                        borderColor: 'rgba(255, 141, 73, 1)',
+                        borderWidth: 1,
+                        fill: false,
+                    },
+                    {
+                        label: 'Intermittency',
+                        data: intermittency_data,
+                        backgroundColor: 'rgba(255, 232, 73, 0.2)',
+                        borderColor: 'rgba(255, 232, 73, 1)',
+                        borderWidth: 1,
+                        fill: false,
+                    },
+                    {
+                        label: 'Urgency',
+                        data: urgency_data,
+                        backgroundColor: 'rgba(135, 255, 73, 0.2)',
+                        borderColor: 'rgba(135, 255, 73, 1)',
+                        borderWidth: 1,
+                        fill: false,
+                    },
+                    {
+                        label: 'Weak Stream',
+                        data: weak_stream_data,
+                        backgroundColor: 'rgba(73, 232, 255, 0.2)',
+                        borderColor: 'rgba(73, 232, 255, 1)',
+                        borderWidth: 1,
+                        fill: false,
+                    },
+                    {
+                        label: 'Straining',
+                        data: straining_data,
+                        backgroundColor: 'rgba(73, 80, 255, 0.2)',
+                        borderColor: 'rgba(73, 80, 255, 1)',
+                        borderWidth: 1,
+                        fill: false,
+                    },
+                    {
+                        label: 'Nocturia',
+                        data: nocturia_data,
+                        backgroundColor: 'rgba(195, 73, 255, 0.2)',
+                        borderColor: 'rgba(195, 73, 255, 1)',
+                        borderWidth: 1,
+                        fill: false,
+                    },
+                ]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            
+                            ticks: {
+                                    min: 0,
+                                    max: 6,
+                                    stepSize: 1,
+                                    callback: function(label, index, labels) {
+
+
+                                      
+                                        switch (label) {
+                                            case 0:
+                                                return 'Not at all';
+                                            case 1:
+                                                return 'Less than 1 time in 5';
+                                            case 2:
+                                                return 'Less than half the time';
+                                            case 3:
+                                                return 'About half the time';
+                                            case 4:
+                                                return 'More than half the time';
+                                            case 5:
+                                                return 'Almost always';
+                                  
+                                        }
+                                    }
+                                
+                            },
+                        }]  
+                    }
+                }
+            });
+    });
+
+// QOL chart
+$(document).ready(function(){
+            var ctx = document.getElementById('qolChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: label,
+                    datasets: [{
+                        label: 'Quality of life',
+                        data: quality_of_life_data,
+                        backgroundColor: 'rgba(255, 73, 73, 0.2)',
+                        borderColor: 'rgba(255, 73, 73, 1)',
+                        borderWidth: 1,
+                        fill: false,
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                               
+                                ticks: {
+                                    min: 0,
+                                    max: 6,
+                                    stepSize: 1,
+                                    callback: function(label, index, labels) {
+
+
+                                        switch (label) {
+                                            case 0:
+                                                return 'Terrible';
+                                            case 1:
+                                                return 'Unhappy';
+                                            case 2:
+                                                return 'Mostly dissatisfied';
+                                            case 3:
+                                                return 'Mixed feeling (neutral)';
+                                            case 4:
+                                                return 'Mostly satisfied';
+                                            case 5:
+                                                return 'Pleased';
+                                            case 6:
+                                                return 'Delighted';
+                          
+                                        }
+                                    }
+                                
+                            },
+                        }]  
+                    }
+                }
+            });
+    });
+
+</script>
+{%endblock %}
+
+</html>
+{%endblock %}
+

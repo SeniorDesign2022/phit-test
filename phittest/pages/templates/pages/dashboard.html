@@ -1,0 +1,257 @@
+{% extends "base.html"%}
+    {% block title %}Dashboard{% endblock %}
+{% load static %}
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://kit.fontawesome.com/649659c7c9.js" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'calendar.css' %}">
+</head>
+
+<body>
+    <div class='mainContent'>
+ 
+        <div class = 'calendar_box'>
+        <div class='monthButton' ,id='monthButton'>
+            <button class='lbtn' , type="button" id='lastMonth'><i class="fas fa-arrow-left"></i></button>
+        </div>
+
+        <div class='CLANDER'>
+            <table id="calendar_table">
+                <caption class="current_month"></caption>
+                <tr>
+                    <th>Sun</th>
+                    <th>Mon</th>
+                    <th>Tue</th>
+                    <th>Wed</th>
+                    <th>Thu</th>
+                    <th>Fri</th>
+                    <th>Sat</th>
+                </tr>
+                <table id ="cal">
+
+                </table>
+
+            </table>
+
+        </div>
+
+        <div class='monthButton' ,id='monthButton'>
+            <button class='rbtn' ,type="button" id='nextMonth'><i class="fas fa-arrow-right"></i></button>
+        </div>
+
+
+    </div>
+    <div class = "messagediv">
+        <h2 id = "consecutive_message"></h2>
+    </div>
+    </div>
+    {%block js%}
+    <script>
+        //Whenever a category button is clicked, this js will modify its class so the appearance will be changed.
+    
+        function changebtnstatus() {
+            let currentClass = event.target.className;
+            if (currentClass == 'unpressedbtn') {
+                event.target.className = 'pressedbtn';
+
+            }
+            else {
+                event.target.className = 'unpressedbtn';
+
+            }
+        }
+        //imported functions
+        (function () { 
+            Date.prototype.deltaDays = function (c) { return new Date(this.getFullYear(), this.getMonth(), this.getDate() + c) }; 
+            Date.prototype.getSunday = function () { return this.deltaDays(-1 * this.getDay()) } 
+        })();
+
+        function Week(c) { this.sunday = c.getSunday(); 
+            this.nextWeek = function () { return new Week(this.sunday.deltaDays(7)) }; 
+            this.prevWeek = function () { return new Week(this.sunday.deltaDays(-7)) }; 
+            this.contains = function (b) { return this.sunday.valueOf() === b.getSunday().valueOf() }; 
+            this.getDates = function () { for (var b = [], a = 0; 7 > a; a++)b.push(this.sunday.deltaDays(a)); return b } 
+        }
+        function Month(c, b) { this.year = c; this.month = b; 
+            this.nextMonth = function () { return new Month(c + Math.floor((b + 1) / 12), (b + 1) % 12) }; 
+            this.prevMonth = function () { return new Month(c + Math.floor((b - 1) / 12), (b + 11) % 12) }; 
+            this.getDateObject = function (a) { return new Date(this.year, this.month, a) }; 
+            this.getWeeks = function () { var a = this.getDateObject(1), b = this.nextMonth().getDateObject(0), c = [], a = new Week(a); 
+            for (c.push(a); !a.contains(b);)a = a.nextWeek(), c.push(a); return c } };
+        // For our purposes, we can keep the current month in a variable in the global scope
+        let currentMonth = new Month(2022, 3);
+        
+        document.getElementsByClassName("current_month")[0].innerHTML = "<b>Month: "+currentMonth.year + ". "+(currentMonth.month +1) +"</b>";
+        // Change the month when the "next" button is pressed
+        document.getElementById("nextMonth").addEventListener("click", function (event) {
+            currentMonth = currentMonth.nextMonth(); // Previous month would be currentMonth.prevMonth()
+            updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
+            document.getElementsByClassName("current_month")[0].innerHTML = "<b>Month: "+currentMonth.year + ". "+(currentMonth.month + 1) +"</b>";
+        }, false);
+        document.getElementById("lastMonth").addEventListener("click", function (event) {
+            currentMonth = currentMonth.prevMonth(); // Previous month would be currentMonth.prevMonth()
+            updateCalendar(); // Whenever the month is updated, we'll need to re-render the calendar in HTML
+            document.getElementsByClassName("current_month")[0].innerHTML = "<b>Month: "+currentMonth.year + ". "+ (currentMonth.month +1)  +"</b>";
+        }, false);
+
+
+
+        var dates = [];
+        let tf = false;
+     
+        {% for data in qs %}
+          
+            tf = ('{{request.user}}' == '{{data.user}}');
+            if (tf) {
+                let thisdate = [];
+                thisdate.push({{data.date.month}});
+                thisdate.push({{data.date.day}});
+                thisdate.push({{data.date.year}});
+                dates.push(thisdate.join('-'));
+            }
+        {% endfor %}
+ 
+        
+        dates.sort(function(a,b) {
+            a = a.split('-').reverse().join('');
+            b = b.split('-').reverse().join('');
+            return a > b ? 1 : a < b ? -1 : 0;  
+        });
+
+        var today = new Date();
+        var dd = String(today.getDate());
+        var mm = String(today.getMonth() + 1);
+        var yyyy = today.getFullYear();
+
+        today = mm + '-' + dd + '-' + yyyy;
+
+        
+
+        var consecutive_days = [dates[dates.length-1]];
+        for(let d = dates.length-1; d >0; d--){
+            let cur_day = dates[d];
+            let prev_day = dates[d-1];
+            if(Date.parse(cur_day) - Date.parse(prev_day) === 86400000){
+                consecutive_days.push(prev_day);
+            }
+            else{
+                break;
+            }
+        }
+
+
+        function istodayRecorded(){
+
+            return consecutive_days[0] == today;
+        }
+
+        let message = ""
+        if(istodayRecorded()){   
+
+            if(consecutive_days.length > 1){
+                message += "Nice job! You've recorded for ";
+                message += consecutive_days.length.toString();
+                message += " consecutive days!";
+            }
+            else if(consecutive_days.length = 1){
+                message += "It's never too late to start recording!"
+            }
+
+         }
+        else{
+            message += "Let's record data! It's critical to track medication efficacy!";
+        }
+
+        document.getElementById("consecutive_message").innerHTML = message;
+    
+
+        updateCalendar();
+
+        function updateCalendar() {
+            
+         
+            //reference: https://developer.mozilla.org/en-US/docs/Web/API/Node/removeChild
+            let element = document.getElementById("cal");
+            while (element.firstChild) {
+                element.removeChild(element.firstChild);
+            }
+            //end reference
+            let weeks = currentMonth.getWeeks();
+            
+            let weektable = document.createElement("table");
+            weektable.className="calendartable";
+            let tblBody = document.createElement("tbody")
+            for (let w in weeks) {
+
+                let days = weeks[w].getDates();
+                // days contains normal JavaScript Date objects.
+                let row = document.createElement("tr");
+                for (let i in days) {
+                   
+                    let cell = document.createElement("td");
+                    let celldiv=cell.appendChild(document.createElement("div"));
+                        celldiv.className+="unit";
+                        let numberdiv=celldiv.appendChild(document.createElement("div"));
+                            numberdiv.className+="date";
+                            let cellText = document.createTextNode(days[i].getDate());
+                            numberdiv.appendChild(cellText);
+
+
+                        celldiv.appendChild(numberdiv);
+                        let fulldate = [];
+                        fulldate.push(days[i].getMonth()+1);
+                        fulldate.push(days[i].getDate());
+                        fulldate.push(days[i].getFullYear());
+                        let fulldatestring = fulldate.join('-');
+                        
+
+
+                        for(var d = 0; d<dates.length; d++){
+                           
+
+                            if( dates[d] == fulldatestring){
+                      
+                                let checkdiv = celldiv.appendChild(document.createElement("div"));
+                                checkdiv.className +="check";
+                                checkdiv.innerHTML = '<i class="fa fa-check" aria-hidden="true"></i>';
+                                
+                                celldiv.appendChild(checkdiv);
+                            }
+                            
+                        }
+
+                        if(fulldatestring == today){
+                            cell.id += "today";
+                           
+                        }
+
+                 
+                    cell.appendChild(celldiv);
+                    row.appendChild(cell);
+                }
+                tblBody.appendChild(row);
+                weektable.appendChild(tblBody);
+            }
+            document.getElementById("cal").appendChild(weektable);
+        }
+    </script>
+    {%endblock %}
+
+
+
+
+</body>
+
+</html>
+
+
+
+{% endblock %}
+
+    
